@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>헬스장 리스트</h1>
+{% for gym in gyms %}
+<div>
+    <div>이름 : {{ gym.name }}</div>
+    <div>주소 : {{ gym.address }}</div>
+</div>
+{% endfor %}
+{% endblock content %}
