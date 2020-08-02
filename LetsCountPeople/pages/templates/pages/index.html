@@ -2,30 +2,31 @@
 {% load static %}
 {% block content %}
 <section class="main-content">
-  <div id="map"></div> <br></br>
-  <script>
+<div id="map"></div>
+<br></br>
+<script>
   function changeGym(name, address){
       document.getElementById("gymname").value = name;
       document.getElementById("gymaddress").value = address;
   }
-  </script>
-  <section class="gym-lists">
-    <div class="gym-search">
-      <input class="gym-input" type="text" placeholder="찾는 헬스장을 검색해보세요">
-      <button>검색</button>
+</script>
+<section class="gym-lists">
+  <div class="gym-search">
+    <input class="gym-input" type="text" placeholder="찾는 헬스장을 검색해보세요">
+    <button>검색</button>
+  </div>
+  {% for gym in gyms %}
+  <section class="gym-list">
+    <div class="gym-list-information">
+      <div class="gym-list-name">이름 : {{ gym.name }}</div>
+      <div class="gym-list-address">주소 : {{ gym.address }}</div>
     </div>
-    {% for gym in gyms %}
-      <section class="gym-list">
-        <div class="gym-list-information">
-          <div class="gym-list-name">이름 : {{ gym.name }}</div>
-          <div class="gym-list-address">주소 : {{ gym.address }}</div>
-        </div>
-        <button class="gym-list-btn" type="button" onClick="changeGym("{{ gym.name }}", "{{ gym.address }}")">지도보기</button>
-      </section>
-    {% endfor %}
+    <button class="gym-list-btn" type="button" onClick="changeGym("{{ gym.name }}", "{{ gym.address }}")">지도보기</button>
   </section>
-  <input type="hidden" id="gymname" name="gymname" value="defaultname" />
-  <input type="hidden" id="gymaddress" name="gymaddress" value="defaultaddress" />
-  <script src="{% static 'pages/map.js' %}"></script>  
+  {% endfor %}
+</section>
+<input type="hidden" id="gymname" name="gymname" value="defaultname" />
+<input type="hidden" id="gymaddress" name="gymaddress" value="defaultaddress" />
+<script src="{% static 'pages/map.js' %}"></script>  
 </div>
 {% endblock content %}
