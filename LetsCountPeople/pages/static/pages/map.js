@@ -1,15 +1,26 @@
-function changeGym(name, address) {
+function changeGym(name, address, lat, lon, pop) {
   document.getElementById("gymname").value = name;
   document.getElementById("gymaddress").value = address;
+  if (lat != "None") {
+    document.getElementById("gymlatitude").value = lat;
+    document.getElementById("gymlongitude").value = lon;
+  } else {
+    // lat, lon 구해서 db에 저장하도록 하자.
+  }
+  if (pop != "None") {
+    document.getElementById("gympopulation").value = pop;
+  } else {
+    // 재경아 화이팅!
+  }
   drawMap();
 }
 function drawMap() {
   const locName = document.getElementById("gymname").value;
   const locAddress = document.getElementById("gymaddress").value;
-  const latitude = 37.482792;
-  const longitude = 126.95328;
+  const latitude = Number(document.getElementById("gymlatitude").value);
+  const longitude = Number(document.getElementById("gymlongitude").value);
   const locType = "헬스장";
-  const locPopulation = 34;
+  const locPopulation = Number(document.getElementById("gympopulation").value);
 
   const locPosition = new naver.maps.LatLng(latitude, longitude);
   const map = new naver.maps.Map("map", {
