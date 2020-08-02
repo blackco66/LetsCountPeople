@@ -1,6 +1,11 @@
+function changeGym(name, address) {
+  document.getElementById("gymname").value = name;
+  document.getElementById("gymaddress").value = address;
+  drawMap();
+}
 function drawMap() {
   const locName = document.getElementById("gymname").value;
-  const locAddress = "서울 관악구 관악로 195 관악위버폴리스 B동 2층";
+  const locAddress = document.getElementById("gymaddress").value;
   const latitude = 37.482792;
   const longitude = 126.95328;
   const locType = "헬스장";
@@ -47,4 +52,3 @@ function drawMap() {
 }
 
 drawMap();
-
