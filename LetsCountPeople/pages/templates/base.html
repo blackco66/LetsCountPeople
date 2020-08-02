@@ -1,33 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>LetsCountPeople</title>
-        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9piedsx8xm"></script> 
-        <link rel="stylesheet" href="{% static 'pages/style.css' %}"
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
-    </head>
-    <body>
-      <header>
-        <a href="/pages/" style="color: #1c7ed6;"><h1>지금 가도 될까?</h1></a>
-        {% if user.is_authenticated %}
-          <nav>
-            <a class="link-review" href="/pages/review/">리뷰</a>
-            {{ user.get_username }}님 안녕하세요!
-            <a class="link-logout" href="{% url 'logout' %}?next={{request.path}}">로그아웃</a>
-          </nav>
-        {% else %}
-          <nav>
-            <a class="link-review" href="/pages/review/">리뷰</a>
-            <a class="link-login" href="{% url 'login' %}?next={{request.path}}">로그인</a>
-            <a class="link-signup" href="{% url 'signup' %}">회원가입</a>
-          </nav>
-        {% endif %}
-      </header>
-      {% block content %}
-      {% endblock %}
-      <footer>
-      </footer>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>LetsCountPeople</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9piedsx8xm"></script> 
+    <link rel="stylesheet" href="{% static 'pages/style.css' %}"
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a href="/pages/" style="color: #1c7ed6;">
+        <h1>지금 가도 될까?</h1>
+      </a>
+      {% if user.is_authenticated %}
+      <nav>
+        <a class="link-review" href="/pages/review/">리뷰</a>
+        {{ user.get_username }}님 안녕하세요!
+        <a class="link-logout" href="{% url 'logout' %}?next={{request.path}}">로그아웃</a>
+      </nav>
+      {% else %}
+      <nav>
+        <a class="link-review" href="/pages/review/">리뷰</a>
+        <a class="link-login" href="{% url 'login' %}?next={{request.path}}">로그인</a>
+        <a class="link-signup" href="{% url 'signup' %}">회원가입</a>
+      </nav>
+      {% endif %}
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+    </footer>
+  </body>
 </html>
