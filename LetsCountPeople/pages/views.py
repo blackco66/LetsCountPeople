@@ -5,8 +5,9 @@ from pages.models import Gym, CurrentPeople, Review
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 def index(request):
-    gyms = Gym.objects.all()
-    return render(request, 'pages/index.html', {'gyms': gyms})
+    if request.method == 'GET':
+        gyms = Gym.objects.all()
+        return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def review(request):
@@ -15,6 +16,7 @@ def review(request):
 
 
 def new(request):
+<<<<<<< HEAD
   if request.method == "POST":
     gym = Gym.objects.get(id = 1)
     author = request.user
