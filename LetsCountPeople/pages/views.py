@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from pages.models import Gym, CurrentPeople, Review
 
+
 def index(request):
     gyms = Gym.objects.all()
     return render(request, 'pages/index.html', {'gyms': gyms})
@@ -44,3 +45,17 @@ def delete(request, id):
   review = Review.objects.get(id = id)
   review.delete()
   return redirect('/pages/review/')
+    return render(request, 'pages/review.html')
+
+
+def search_result(request):
+    gym_names = None
+    query = None
+    gym_all = Gym.objects.all()
+    if 'q' in request.GET:
+        query = request.GET.get('q')
+        gym_names = gym_all.filter(
+            Q(name__icontains=query) | Q(address__icontains=query))
+    else:
+        gym_names = gym_all
+    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
