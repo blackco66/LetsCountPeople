@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review
 from django.views.decorators.csrf import ensure_csrf_cookie
 
@@ -45,7 +46,6 @@ def delete(request, id):
   review = Review.objects.get(id = id)
   review.delete()
   return redirect('/pages/review/')
-    return render(request, 'pages/review.html')
 
 
 def search_result(request):
