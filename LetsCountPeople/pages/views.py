@@ -25,7 +25,8 @@ def search_result(request):
         print('search')
         query = request.GET.get('q')
         gym_names = gym_all.filter(
-            Q(name__contains=query) | Q(address__contains=query))
+            Q(name__icontains=query) | Q(address__icontains=query))
+
     else:
         print('nosearch')
         gym_names = gym_all
