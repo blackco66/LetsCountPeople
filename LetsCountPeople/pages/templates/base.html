@@ -15,8 +15,11 @@
       </a>
       {% if user.is_authenticated %}
       <nav>
+        {% if user.is_staff %}
+          <a class="link-create-gym" href="/pages/new_gym/" style="font-weight: bolder;">헬스장 추가</a>
+        {% endif %}
         <a class="link-review" href="/pages/review/">리뷰</a>
-        {{ user.get_username }}님 안녕하세요!
+        <div>{{ user.get_username }}님 안녕하세요!</div>
         <a class="link-logout" href="{% url 'logout' %}?next={{request.path}}">로그아웃</a>
       </nav>
       {% else %}
