@@ -63,14 +63,6 @@ def delete(request, id):
     return redirect('/pages/review/')
 
 
-def get_data(request):
-    if request.method == 'POST':
-        gym = Gym.objects.get(name=request.POST['gym_name'])
-        CurrentPeople.objects.create(
-            gym=gym, num_people=request.POST['people_num'])
-    return redirect('/')
-
-
 def comment(request, id):
     review = Review.objects.get(id=id)
     ReviewComment.objects.create(
@@ -83,3 +75,11 @@ def comment_delete(request, id, cid):
     comment = ReviewComment.objects.get(id=cid)
     comment.delete()
     return render(request, 'pages/show.html', {'review': review})
+
+
+def get_data(request):
+    if request.method == 'POST':
+        gym = Gym.objects.get(name=request.POST['gym_name'])
+        CurrentPeople.objects.create(
+            gym=gym, num_people=request.POST['people_num'])
+    return redirect('/')
