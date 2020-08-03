@@ -14,8 +14,8 @@ def search_result(request):
     gym_names = None
     query = None
     gym_all = Gym.objects.all()
-    if 'q' in request.GET:
-        query = request.GET.get('q')
+    if 'q' in request.POST:
+        query = request.POST.get('q')
         gym_names = gym_all.filter(
             Q(name__icontains=query) | Q(address__icontains=query))
     else:
@@ -63,19 +63,6 @@ def delete(request, id):
     return redirect('/pages/review/')
 
 
-def search_result(request):
-    gym_names = None
-    query = None
-    gym_all = Gym.objects.all()
-    if 'q' in request.GET:
-        query = request.GET.get('q')
-        gym_names = gym_all.filter(
-            Q(name__icontains=query) | Q(address__icontains=query))
-    else:
-        gym_names = gym_all
-    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
-
-
 def get_data(request):
     if request.method == 'POST':
         gym = Gym.objects.get(name=request.POST['gym_name'])
@@ -89,10 +76,6 @@ def comment(request, id):
     ReviewComment.objects.create(
         author=request.user, review_id=id, content=request.POST['review-comment'])
     return render(request, 'pages/show.html', {'review': review})
-
-
-# def comment_update(request, id, cid):
-#   comment = ReviewComment.objects.get(id = cid)
 
 
 def comment_delete(request, id, cid):
