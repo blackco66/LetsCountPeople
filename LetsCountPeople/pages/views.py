@@ -1,12 +1,25 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
-from pages.models import Gym, CurrentPeople, Review
+from pages.models import Gym, CurrentPeople, Review, ReviewComment
 
 
 def index(request):
     gyms = Gym.objects.all()
     return render(request, 'pages/index.html', {'gyms': gyms})
+
+
+def search_result(request):
+    gym_names = None
+    query = None
+    gym_all = Gym.objects.all()
+    if 'q' in request.GET:
+        query = request.GET.get('q')
+        gym_names = gym_all.filter(
+            Q(name__icontains=query) | Q(address__icontains=query))
+    else:
+        gym_names = gym_all
+    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
 def review(request):
@@ -48,14 +61,19 @@ def delete(request, id):
   return redirect('/pages/review/')
 
 
-def search_result(request):
-    gym_names = None
-    query = None
-    gym_all = Gym.objects.all()
-    if 'q' in request.GET:
-        query = request.GET.get('q')
-        gym_names = gym_all.filter(
-            Q(name__icontains=query) | Q(address__icontains=query))
-    else:
-        gym_names = gym_all
-    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+def comment(request, id):
+  review = Review.objects.get(id = id)
+  ReviewComment.objects.create(author = request.user, review_id = id, content = request.POST['review-comment'])
+  return render(request, 'pages/show.html', {'review': review})
+
+
+# def comment_update(request, id, cid):
+#   comment = ReviewComment.objects.get(id = cid)
+
+
+def comment_delete(request, id, cid):
+  review = Review.objects.get(id = id)
+  comment = ReviewComment.objects.get(id = cid)
+  comment.delete()
+  return render(request, 'pages/show.html', {'review': review})
+  
