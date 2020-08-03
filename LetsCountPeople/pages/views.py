@@ -16,7 +16,6 @@ def review(request):
 
 
 def new(request):
-<<<<<<< HEAD
   if request.method == "POST":
     gym = Gym.objects.get(id = 1)
     author = request.user
