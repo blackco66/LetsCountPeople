@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 def index(request):
     if request.method == 'GET':
@@ -61,7 +60,7 @@ def search_result(request):
         gym_names = gym_all
     return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
-@ensure_csrf_cookie
+
 def get_data(request):
   if request.method =='POST':
     gym = Gym.objects.get(name=request.POST['gym_name'])
