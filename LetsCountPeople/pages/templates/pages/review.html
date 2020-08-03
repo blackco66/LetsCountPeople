@@ -8,5 +8,7 @@
       </div>
     {% endfor %}
   </div>
-  <a href="/pages/review/new/">글쓰기</a>
+  {% if user.is_authenticated %}
+    <a href="/pages/review/new/">글쓰기</a> 
+  {% endif %}
 {% endblock content %}
