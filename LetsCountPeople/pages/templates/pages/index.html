@@ -5,10 +5,11 @@
 <div id="map"></div>
 <br></br>
 <section class="gym-lists">
-  <div class="gym-search">
-    <input class="gym-input" type="text" placeholder="찾는 헬스장을 검색해보세요">
-    <button>검색</button>
-  </div>
+  <form class="gym-search" action="{% url 'search_result' %}" method="get">
+    {% csrf_token %}
+    <input class="gym-input" type="search" placeholder="찾는 헬스장을 검색해보세요." aria-label="Search" name="q">
+    <button type="submit">검색</button>
+  </form>
   {% for gym in gyms %}
   <section class="gym-list">
     <div class="gym-list-information">
