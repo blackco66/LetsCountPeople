@@ -19,7 +19,7 @@ class Gym(models.Model):
 
 
 class CurrentPeople(models.Model):
-  gym = models.OneToOneField(Gym, on_delete=models.CASCADE)
+  gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
   num_people = models.IntegerField(default=0, null=False, blank=False)
   updated_at = models.DateTimeField(auto_now=True)  # 생성 혹은 변경시 자동으로 시간 업데이트
 
