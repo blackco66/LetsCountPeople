@@ -9,7 +9,7 @@ import time
 
 Gym_name='Gyminthehous'
 time_interval = 10
-url_post = 'http://www.naver.com/'
+url_post = 'http://127.0.0.1:8000'
 
 avg = None
 xvalues = list()
@@ -57,7 +57,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
     thresh = cv2.dilate(thresh, None, iterations=2)
-    (_, cnts, _) = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     flag = True
     for c in cnts:
         if cv2.contourArea(c) < 5000:
@@ -94,7 +94,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if af-bf > time_interval:
         print("Posting that {} people in here".format(people_num))
         param = {'gymname' : Gym_name, 'num_people': people_num}
-        r=requests.get(url=url_post,params=param)
+        r=requests.post(url_post,data=param)
         print(r.status_code)
         bf = time.time()
 
