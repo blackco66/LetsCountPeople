@@ -11,4 +11,5 @@ urlpatterns = [
     path('review/<int:id>/update/', pages.views.update, name='update'),
     path('review/<int:id>/delete/', pages.views.delete, name='delete'),
     path('get_data/', pages.views.get_data, name='get_data'),
+    path('new_gym/',pages.views.new_gym, name='new_gym'),
 ]

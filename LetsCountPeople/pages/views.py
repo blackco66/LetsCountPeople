@@ -13,6 +13,20 @@ def review(request):
   reviews = Review.objects.all()
   return render(request, 'pages/review.html', {'reviews' : reviews})
 
+def new_gym(request):
+  if request.method == 'GET':
+    return render(request, 'pages/new_gym.html')
+  else:
+    name = request.POST['gym_name']
+    address = request.POST['gym_address']
+    if request.POST['gym_latitude'] != '' and request.POST['gym_longitude'] != '':
+      latitude = request.POST['gym_latitude']
+      longitude = request.POST['gym_longitude']
+    else:
+      latitude = None
+      longitude = None
+    Gym.objects.create(name=name, address=address, latitude=latitude, longitude=longitude)
+    return redirect('/')
 
 def new(request):
   if request.method == "POST":
