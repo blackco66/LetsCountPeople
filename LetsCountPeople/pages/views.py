@@ -20,3 +20,4 @@ def new(request):
 def get_data(request):
     if request.method == 'POST':
         print(request.POST['people_num'])
+    return redirect('/')
