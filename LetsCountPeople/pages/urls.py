@@ -8,4 +8,6 @@ urlpatterns = [
     path('review/', pages.views.review, name='review'),
     path('review/new/', pages.views.new, name='new'),
     path('review/<int:id>/', pages.views.show, name='show'),
+    path('review/<int:id>/update/', pages.views.update, name='update'),
+    path('review/<int:id>/delete/', pages.views.delete, name='delete'),
 ]

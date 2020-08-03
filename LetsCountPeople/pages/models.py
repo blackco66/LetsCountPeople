@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 
 class Gym(models.Model):
@@ -38,6 +39,7 @@ class CurrentPeople(models.Model):
 
 class Review(models.Model):
   gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
+  author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
   title = models.CharField(max_length=40)
   content = models.TextField()
   hits = models.IntegerField(default=0)
@@ -45,4 +47,8 @@ class Review(models.Model):
   updated_at = models.DateTimeField(null=True)
 
   def __str__(self):
-    return '헬스장: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s' % (self.gym.name, self.title, self.hits, self.created_at, self.updated_at)
+    return '헬스장: %s, 작성자: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s' % (self.gym.name, self.user.username,self.title, self.hits, self.created_at, self.updated_at)
+
+
+# class ReviewComment(models.Model):
+
