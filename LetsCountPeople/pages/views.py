@@ -64,3 +64,4 @@ def search_result(request):
 def get_data(request):
   if request.method =='POST':
     CurrentPeople.objects.create(num_people=request.POST['people_num'])
+  return None
