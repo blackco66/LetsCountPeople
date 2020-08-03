@@ -5,8 +5,9 @@ from pages.models import Gym, CurrentPeople, Review
 
 
 def index(request):
-    gyms = Gym.objects.all()
-    return render(request, 'pages/index.html', {'gyms': gyms})
+    if request.method == 'GET':
+        gyms = Gym.objects.all()
+        return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def review(request):
@@ -60,3 +61,11 @@ def search_result(request):
     else:
         gym_names = gym_all
     return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+
+
+def get_data(request):
+    if request.method == 'POST':
+        gym = Gym.objects.get(name=request.POST['gym_name'])
+        CurrentPeople.objects.create(
+            gym=gym, num_people=request.POST['people_num'])
+    return redirect('/')
