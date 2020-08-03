@@ -9,7 +9,8 @@ import time
 
 Gym_name='Gyminthehous'
 time_interval = 10
-url_post = 'http://127.0.0.1:8000'
+url_post = 'http://127.0.0.1:8000/pages/get_data/'
+url_login = 'http://127.0.0.1:8000/accounts/login/'
 
 avg = None
 xvalues = list()
@@ -93,8 +94,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     af = time.time()
     if af-bf > time_interval:
         print("Posting that {} people in here".format(people_num))
-        param = {'gymname' : Gym_name, 'num_people': people_num}
-        r=requests.post(url_post,data=param)
+        client = requests.session()
+
+        client.get(url_login)
+        csrftoken = client.cookies['csrftoken']
+        
+         
+        param = {'gymname' : Gym_name, 'people_num': people_num, 'csrfmiddlewaretoken':csrftoken}
+        r=client.post(url_post,data=param,headers={'Referer':url_post})
         print(r.status_code)
         bf = time.time()
 
