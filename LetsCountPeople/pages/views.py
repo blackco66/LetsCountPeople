@@ -64,5 +64,6 @@ def search_result(request):
 @ensure_csrf_cookie
 def get_data(request):
   if request.method =='POST':
-    CurrentPeople.objects.create(num_people=request.POST['people_num'])
-  return None
+    gym = Gym.objects.get(name=request.POST['gym_name'])
+    CurrentPeople.objects.create(gym=gym,num_people=request.POST['people_num'])
+  return redirect('/') 

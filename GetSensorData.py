@@ -7,10 +7,11 @@ import cv2
 import requests
 import time
 
-Gym_name='Gyminthehous'
+gym_name='Gyminthehous'
 time_interval = 10
 url_post = 'http://127.0.0.1:8000/pages/get_data/'
 url_login = 'http://127.0.0.1:8000/accounts/login/'
+gym_id = 0
 
 avg = None
 xvalues = list()
@@ -100,7 +101,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         csrftoken = client.cookies['csrftoken']
         
          
-        param = {'gymname' : Gym_name, 'people_num': people_num, 'csrfmiddlewaretoken':csrftoken}
+        param = {'gym_name' : gym_name, 'people_num': people_num, 'csrfmiddlewaretoken':csrftoken}
         r=client.post(url_post,data=param,headers={'Referer':url_post})
         print(r.status_code)
         bf = time.time()
