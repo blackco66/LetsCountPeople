@@ -13,10 +13,10 @@ def signup(request):
       return redirect('/pages/')
   return render(request, 'accounts/signup.html')
 
-def login(request):
-  if request.method == "POST":
-    user = auth.authenticate(request, username = request.POST['user-id'], password = request.POST['user-password'])
-    if user is not None:
-      auth.login(request, user)
-      return redirect('/pages/')
-  return render(request, 'accounts/login.html')
+# def login(request):
+#   if request.method == "POST":
+#     user = auth.authenticate(request, username = request.POST['user-id'], password = request.POST['user-password'])
+#     if user is not None:
+#       auth.login(request, user)
+#       return redirect('/pages/')
+#   return render(request, '/accounts/login.html')
