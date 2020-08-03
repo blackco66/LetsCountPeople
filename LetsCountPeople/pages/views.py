@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review
 
-
 def index(request):
-    gyms = Gym.objects.all()
-    return render(request, 'pages/index.html', {'gyms': gyms})
+    if request.method == 'GET':
+        gyms = Gym.objects.all()
+        return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def review(request):
@@ -45,7 +46,6 @@ def delete(request, id):
   review = Review.objects.get(id = id)
   review.delete()
   return redirect('/pages/review/')
-    return render(request, 'pages/review.html')
 
 
 def search_result(request):
@@ -59,3 +59,10 @@ def search_result(request):
     else:
         gym_names = gym_all
     return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+
+
+def get_data(request):
+  if request.method =='POST':
+    gym = Gym.objects.get(name=request.POST['gym_name'])
+    CurrentPeople.objects.create(gym=gym,num_people=request.POST['people_num'])
+  return redirect('/') 

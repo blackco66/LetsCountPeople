@@ -10,4 +10,5 @@ urlpatterns = [
     path('review/<int:id>/', pages.views.show, name='show'),
     path('review/<int:id>/update/', pages.views.update, name='update'),
     path('review/<int:id>/delete/', pages.views.delete, name='delete'),
+    path('get_data/', pages.views.get_data, name='get_data'),
 ]
