@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  title: {{ review.title }} <br>
-  content: {{ review.content }} <br>
-  hits: {{ review.hits }} <br>
-  {% if review.author == request.user %}
-    <a href="/pages/review/{{ review.id }}/update/">수정 </a><a href="/pages/review/{{ review.id }}/delete/">삭제</a>
-  {% endif %}
+  <div style="border: 1px solid black;">
+    title: {{ review.title }} <br>
+    content: {{ review.content }} <br>
+    hits: {{ review.hits }} <br>
+    {% if review.author == request.user %}
+      <a href="/pages/review/{{ review.id }}/update/">수정 </a><a href="/pages/review/{{ review.id }}/delete/">삭제</a>
+    {% endif %}
+  </div>
   <a class="" href="/pages/review/">목록보기</a>
+  <div>
+    {% if user.is_authenticated %}
+      <form action="/pages/review/{{ review.id }}/comment/" method="POST">
+        {% csrf_token %}
+        <input type="text" name="review-comment" placeholder="댓글 입력" />
+        <input type="submit" value="댓글 달기" />
+      </form>
+    {% endif %}
+    {% for comment in review.reviewcomment_set.all %}
+      <div>작성자: {{ comment.author }} | {{ comment.content }}</div>
+      {% if request.user == comment.author %}
+      {% comment %} <a href="pages/review/{{ review.id }}/comment/{{ comment.id }}/">수정</a> {% endcomment %}
+        <a href="/pages/review/{{ review.id }}/comment/{{ comment.id }}/delete/">삭제</a>
+      {% endif %}
+    {% endfor %}
+  </div>
 {% endblock content %}
