@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  title: {{ review.title }} <br>
+  content: {{ review.content }} <br>
+  hits: {{ review.hits }} <br>
+  {% if review.author == request.user %}
+    <a href="/pages/review/{{ review.id }}/update/">수정 </a><a href="/pages/review/{{ review.id }}/delete/">삭제</a>
+  {% endif %}
+  <a class="" href="/pages/review/">목록보기</a>
+{% endblock content %}
