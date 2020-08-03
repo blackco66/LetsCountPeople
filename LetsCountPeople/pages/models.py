@@ -47,8 +47,17 @@ class Review(models.Model):
   updated_at = models.DateTimeField(null=True)
 
   def __str__(self):
-    return '헬스장: %s, 작성자: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s' % (self.gym.name, self.user.username,self.title, self.hits, self.created_at, self.updated_at)
+    return '헬스장: %s, 작성자: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s' % (self.gym.name, self.author, self.title, self.hits, self.created_at, self.updated_at)
 
 
-# class ReviewComment(models.Model):
+class ReviewComment(models.Model):
+  author = models.ForeignKey(User, on_delete=models.CASCADE)
+  review = models.ForeignKey(Review, on_delete=models.CASCADE)
+  content = models.CharField(max_length=40)
+  created_at = models.DateTimeField(default=timezone.now)
+  updated_at = models.DateTimeField(null=True)
+
+  def __str__(self):
+    return '작성자: %s, 내용: %s, id: %d' % (self.author.username, self.content, self.id)
+  
 
