@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<button href="/pages/review/new/">글쓰기</button>
+  <div>
+    {% for review in reviews %}
+      <div style="border: 1px solid black;">
+        {{ review.gym.name }} : <a href="/pages/review/{{ review.id }}/">{{ review.title }}</a> : {{ review.hits }}
+      </div>
+    {% endfor %}
+  </div>
+  <a href="/pages/review/new/">글쓰기</a>
 {% endblock content %}
