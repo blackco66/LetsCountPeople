@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
   <div style="border: 1px solid black;">
     title: {{ review.title }} <br>
@@ -12,9 +12,9 @@
   <a class="" href="/pages/review/">목록보기</a>
   <div>
     {% if user.is_authenticated %}
-      <form action="/pages/review/{{ review.id }}/comment/" method="POST">
+      <form action="/pages/review/{{ review.id }}/comment/" method="POST" class="comment-submit" data-rid= {{ review.id }} data-csrfmiddlewaretoken="{{ csrf_token }}">
         {% csrf_token %}
-        <input type="text" name="review-comment" placeholder="댓글 입력" />
+        <input id="{{ review.id }}" type="text" name="review-comment" placeholder="댓글 입력" />
         <input type="submit" value="댓글 달기" />
       </form>
     {% endif %}
@@ -26,4 +26,5 @@
       {% endif %}
     {% endfor %}
   </div>
+  <script src="{% static 'pages/my.js' %}"></script>
 {% endblock content %}

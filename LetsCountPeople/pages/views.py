@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review, ReviewComment
+from django.http import JsonResponse
 
 
 def index(request):
@@ -13,8 +14,8 @@ def search_result(request):
     gym_names = None
     query = None
     gym_all = Gym.objects.all()
-    if 'q' in request.GET:
-        query = request.GET.get('q')
+    if 'q' in request.POST:
+        query = request.POST.get('q')
         gym_names = gym_all.filter(
             Q(name__icontains=query) | Q(address__icontains=query))
     else:
@@ -24,16 +25,16 @@ def search_result(request):
 
 def review(request):
   reviews = Review.objects.all()
-  return render(request, 'pages/review.html', {'reviews' : reviews})
+  return render(request, 'pages/review.html', {'reviews': reviews})
 
 
 def new(request):
   if request.method == "POST":
-    gym = Gym.objects.get(id = 1)
+    gym = Gym.objects.get(id=1)
     author = request.user
     title = request.POST['review-title']
     content = request.POST['review-content']
-    Review.objects.create(gym = gym, author = author, title = title, content = content)
+    Review.objects.create(gym=gym, author=author, title=title, content=content)
     return redirect('/pages/review/')
   return render(request, 'pages/new.html')
 
@@ -56,15 +57,22 @@ def update(request, id):
 
 
 def delete(request, id):
-  review = Review.objects.get(id = id)
+  review = Review.objects.get(id=id)
   review.delete()
   return redirect('/pages/review/')
 
 
 def comment(request, id):
-  review = Review.objects.get(id = id)
-  ReviewComment.objects.create(author = request.user, review_id = id, content = request.POST['review-comment'])
-  return render(request, 'pages/show.html', {'review': review})
+  ReviewComment.objects.create(author=request.user, review_id=id, content=request.POST['content'])
+  new_comment = ReviewComment.objects.latest('id')
+
+  context = {
+    'id': new_comment.id,
+    'username': new_comment.author.username,
+    'content': new_comment.content,
+  }
+
+  return JsonResponse(context)
 
 
 # def comment_update(request, id, cid):
@@ -72,8 +80,8 @@ def comment(request, id):
 
 
 def comment_delete(request, id, cid):
-  review = Review.objects.get(id = id)
-  comment = ReviewComment.objects.get(id = cid)
+  review = Review.objects.get(id=id)
+  comment = ReviewComment.objects.get(id=cid)
   comment.delete()
   return render(request, 'pages/show.html', {'review': review})
   

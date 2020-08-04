@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 class Gym(models.Model):
   name = models.CharField(max_length=40)
   address = models.CharField(max_length=100)
-  latitude = models.FloatField(null=True)
-  longitude = models.FloatField(null=True)
+  latitude = models.FloatField(null=True, blank=True)
+  longitude = models.FloatField(null=True, blank=True)
 
   def __str__(self):
       if self.latitude and self.longitude:  # 위도, 경도 값이 모두 있을 때
@@ -32,10 +32,6 @@ class CurrentPeople(models.Model):
       if created:
           CurrentPeople.objects.create(gym=instance)
 
-  @receiver(post_save, sender=Gym)
-  def save_gym_currentpeople(sender, instance, **kwargs):
-      instance.currentpeople.save()
-
 
 class Review(models.Model):
   gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
@@ -47,7 +43,7 @@ class Review(models.Model):
   updated_at = models.DateTimeField(null=True)
 
   def __str__(self):
-    return '헬스장: %s, 작성자: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s' % (self.gym.name, self.author, self.title, self.hits, self.created_at, self.updated_at)
+    return '헬스장: %s, 작성자: %s, 제목: %s, 조회수: %d, 작성: %s, 최근 수정: %s, 고유 번호: %d' % (self.gym.name, self.author, self.title, self.hits, self.created_at, self.updated_at, self.id)
 
 
 class ReviewComment(models.Model):
