@@ -14,5 +14,5 @@ urlpatterns = [
     # path('review/<int:id>/comment/<int:cid>/', pages.views.comment_update, name="comment_update"),
     path('review/<int:id>/comment/<int:cid>/delete/', pages.views.comment_delete, name="comment_delete"),
     path('get_data/', pages.views.get_data, name='get_data'),
-    path('new_gym/',pages.views.new_gym, name='new_gym'),
+    path('add-gym/',pages.views.new_gym, name='new_gym'),
 ]
