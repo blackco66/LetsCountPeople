@@ -80,6 +80,7 @@ button {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
   /* border: 1px solid black; */
 }
 
@@ -101,4 +102,21 @@ button {
   border-top: 1px solid black;
 }
 
+.gym-list-btn {
+  font-size: 16px;
+}
+
+header {
+  display: flex;
+  flex : 1 9999 0px;
+}
+
+header nav {
+  width: auto;
+}
+header nav > *{
+  margin-left: 8px;
+  margin-right: 8px;
+  display: flex;
+}
 /* login.html */

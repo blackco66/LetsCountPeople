@@ -4,10 +4,10 @@ from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review, ReviewComment
 from django.http import JsonResponse
 
-
 def index(request):
-    gyms = Gym.objects.all()
-    return render(request, 'pages/index.html', {'gyms': gyms})
+    if request.method == 'GET':
+        gyms = Gym.objects.all()
+        return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def search_result(request):
@@ -27,6 +27,20 @@ def review(request):
   reviews = Review.objects.all()
   return render(request, 'pages/review.html', {'reviews': reviews})
 
+def new_gym(request):
+  if request.method == 'GET':
+    return render(request, 'pages/new_gym.html')
+  else:
+    name = request.POST['gym_name']
+    address = request.POST['gym_address']
+    if request.POST['gym_latitude'] != '' and request.POST['gym_longitude'] != '':
+      latitude = request.POST['gym_latitude']
+      longitude = request.POST['gym_longitude']
+    else:
+      latitude = None
+      longitude = None
+    Gym.objects.create(name=name, address=address, latitude=latitude, longitude=longitude)
+    return redirect('/')
 
 def new(request):
   if request.method == "POST":
@@ -84,4 +98,10 @@ def comment_delete(request, id, cid):
   comment = ReviewComment.objects.get(id=cid)
   comment.delete()
   return render(request, 'pages/show.html', {'review': review})
-  
+
+
+def get_data(request):
+  if request.method =='POST':
+    gym = Gym.objects.get(name=request.POST['gym_name'])
+    CurrentPeople.objects.create(gym=gym,num_people=request.POST['people_num'])
+  return redirect('/') 

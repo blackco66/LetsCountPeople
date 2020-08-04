@@ -1,4 +1,7 @@
 function changeGym(name, address, lat, lon, pop) {
+  console.log(name); 
+  console.log(pop);
+  console.log(1);
   document.getElementById("gymname").value = name;
   document.getElementById("gymaddress").value = address;
   if (lat != "None") {
