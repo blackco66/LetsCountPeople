@@ -28,14 +28,11 @@ def review(request):
   return render(request, 'pages/review.html', {'reviews': reviews})
 
 def new_gym(request):
-  if request.method == 'GET':
-    return render(request, 'pages/new_gym.html')
-  else:
-    name = request.POST['gym_name']
-    address = request.POST['gym_address']
-    if request.POST['gym_latitude'] != '' and request.POST['gym_longitude'] != '':
-      latitude = request.POST['gym_latitude']
-      longitude = request.POST['gym_longitude']
+    name = request.POST['gym-name']
+    address = request.POST['gym-address']
+    if request.POST['gym-latitude'] != '' and request.POST['gym-longitude'] != '':
+      latitude = request.POST['gym-latitude']
+      longitude = request.POST['gym-longitude']
     else:
       latitude = None
       longitude = None
