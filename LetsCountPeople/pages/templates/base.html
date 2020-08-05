@@ -21,7 +21,7 @@
       {% if user.is_authenticated %}
       <nav>
         {% if user.is_staff %}
-          <button tpye="button" data-toggle="modal" data-target="#createModal" class="mdl-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+          <button type="button" data-toggle="modal" data-target="#createModal" class="mdl-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
             <i class="material-icons">헬스장 추가</i>
           </button>
         {% endif %}
@@ -51,7 +51,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="/pages/add-gym/" method="POST">
+            <form action="/pages/add-gym/" method="POST" data-csrfmiddlewaretoken="{{ csrf_token }}" class="add-gym">
               {% csrf_token %}
               <div class="form-group">
                 <label for="gym-name" class="gym-name">헬스장 이름:</label>
@@ -71,12 +71,13 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button class="btn btn-primary">추가</button>
+                <button type="submit" class="btn btn-primary">추가</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <script src="{% static 'pages/modal.js' %}"></script> 
   </body>
 </html>
