@@ -1,10 +1,28 @@
 $(document).ready(() => {
   $('.add-gym').submit((e) => {
     e.preventDefault();
-    console.log('모달 적용');
-    const gymName = $(`input#${gym-name}[name=gym-name]`).val()
-    const csrfmiddlewaretoken = e.data('csrfmiddlewaretoken')
-    console.log(gymName);
-    console.log(csrfmiddlewaretoken);
+
+    $.ajax({
+      type: 'POST',
+      url: `/pages/add-gym/`,
+      data: {
+        csrfmiddlewaretoken: $(e.currentTarget).data('csrfmiddlewaretoken'),
+        name: $(`input#gym-name`).val(),
+        address: $(`input#gym-address`).val(),
+        latitude: '',
+        longitude: ''
+      },
+      dataType: 'json',
+      success: function(response) {
+        console.log('성공');
+        window.location.href = '/pages/';
+      },
+      error: function(response, status, error) {
+        console.log('실패');
+      },
+      complete: function(response) {
+        console.log('완료');
+      }
+    })
   })
 })
