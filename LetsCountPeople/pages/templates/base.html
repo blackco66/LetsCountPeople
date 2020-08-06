@@ -7,6 +7,9 @@
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9piedsx8xm"></script> 
     <link rel="stylesheet" href="{% static 'pages/style.css' %}"/>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet"/>
+    {% block css %}
+      <link rel="stylesheet" href="{% static 'pages/review.css' %}">
+    {% endblock css %}
   </head>
   <body>
     <header>

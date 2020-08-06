@@ -1,0 +1,24 @@
+/* review.html */
+.review-list {
+  border: 1px solid black;
+  margin: 3px 0;
+}
+table {
+  font-size: 12px;
+  border-collapse: collapse;
+}
+.write-button-div {
+  font-size: 13px;
+  text-align: right;
+}
+.write-button {
+  padding: 3px;
+}
+
+th {
+  height: 38px;
+}
+td {
+  height: 27px;
+  border-top: 1px solid black;
+}
