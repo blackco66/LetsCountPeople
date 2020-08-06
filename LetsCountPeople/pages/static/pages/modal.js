@@ -9,8 +9,8 @@ $(document).ready(() => {
         csrfmiddlewaretoken: $(e.currentTarget).data('csrfmiddlewaretoken'),
         name: $(`input#gym-name`).val(),
         address: $(`input#gym-address`).val(),
-        latitude: '',
-        longitude: ''
+        latitude: $(`input#gym-latitude`).val(),
+        longitude: $(`input#gym-longitude`).val(),
       },
       dataType: 'json',
       success: function(response) {
