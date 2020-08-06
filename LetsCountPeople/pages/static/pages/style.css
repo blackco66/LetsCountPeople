@@ -8,7 +8,9 @@ input {
   text-align: center;
 }
 
-a, a:link, a:visited {
+a,
+a:link,
+a:visited {
   text-decoration: none;
   color: black;
 }
@@ -102,3 +104,4 @@ button {
 }
 
 /* login.html */
+
