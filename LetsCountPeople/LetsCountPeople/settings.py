@@ -25,7 +25,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', "test_secret_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'Letscountpeople-env.eba-stynpfpf.ap-northeast-2.elasticbeanstalk.com',
+]
 
 
 # Application definition
@@ -121,8 +123,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'LetsCountPeople', 'static'),
-    )
+
 
 LOGIN_REDIRECT_URL = "/pages/"
