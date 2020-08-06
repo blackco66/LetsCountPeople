@@ -1,0 +1,16 @@
+.article {
+  display: block;
+}
+.article-info {
+  font-size: 14px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid lightgray;
+}
+.article-content {
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.article-edit {
+  font-size: 14px;
+}
