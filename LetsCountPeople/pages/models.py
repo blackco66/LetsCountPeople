@@ -12,10 +12,10 @@ class Gym(models.Model):
   longitude = models.FloatField(null=True, blank=True)
 
   def __str__(self):
-      if self.latitude and self.longitude:  # 위도, 경도 값이 모두 있을 때
-          return '헬스장 이름: %s, 주소: %s, 위도: %f, 경도: %f' % (self.name, self.address, self.latitude, self.longitude)
-      else:  # 위도, 경도 값이 하나라도 없을 때
-          return '헬스장 이름: %s, 주소: %s' % (self.name, self.address)
+        if self.latitude and self.longitude:  # 위도, 경도 값이 모두 있을 때
+            return '헬스장 이름: %s, 주소: %s, 위도: %f, 경도: %f' % (self.name, self.address, self.latitude, self.longitude)
+        else:  # 위도, 경도 값이 하나라도 없을 때
+            return '헬스장 이름: %s, 주소: %s' % (self.name, self.address)
 
 
 class CurrentPeople(models.Model):
@@ -54,6 +54,4 @@ class ReviewComment(models.Model):
   updated_at = models.DateTimeField(null=True)
 
   def __str__(self):
-    return '작성자: %s, 내용: %s, id: %d' % (self.author.username, self.content, self.id)
-  
-
+      return '작성자: %s, 내용: %s, id: %d' % (self.author.username, self.content, self.id)

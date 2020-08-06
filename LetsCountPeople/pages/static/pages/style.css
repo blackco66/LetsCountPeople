@@ -8,7 +8,9 @@ input {
   text-align: center;
 }
 
-a, a:link, a:visited {
+a,
+a:link,
+a:visited {
   text-decoration: none;
   color: black;
 }
@@ -127,3 +129,4 @@ header nav > *{
   display: flex;
 }
 /* login.html */
+

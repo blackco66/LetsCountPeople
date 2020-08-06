@@ -4,6 +4,7 @@ from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review, ReviewComment
 from django.http import JsonResponse
 
+
 def index(request):
     if request.method == 'GET':
         gyms = Gym.objects.all()
@@ -11,21 +12,22 @@ def index(request):
 
 
 def search_result(request):
-    gym_names = None
-    query = None
-    gym_all = Gym.objects.all()
-    if 'q' in request.POST:
-        query = request.POST.get('q')
-        gym_names = gym_all.filter(
-            Q(name__icontains=query) | Q(address__icontains=query))
-    else:
-        gym_names = gym_all
-    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+  gym_names = None
+  query = None
+  gym_all = Gym.objects.all()
+  if 'q' in request.POST:
+      query = request.POST.get('q')
+      gym_names = gym_all.filter(
+          Q(name__icontains=query) | Q(address__icontains=query))
+  else:
+      gym_names = gym_all
+  return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
 def review(request):
   reviews = Review.objects.all()
   return render(request, 'pages/review.html', {'reviews': reviews})
+
 
 def add_gym(request):
     name = request.POST['name']
@@ -37,8 +39,8 @@ def add_gym(request):
       latitude = None
       longitude = None
     new_gym = Gym.objects.create(name=name, address=address, latitude=latitude, longitude=longitude)
-
     return JsonResponse({"message": "created!"} , status=201)
+
 
 def new(request):
   if request.method == "POST":
@@ -52,19 +54,19 @@ def new(request):
 
 
 def show(request, id):
-  review = Review.objects.get(id = id)
+  review = Review.objects.get(id=id)
   review.hits += 1
   review.save()
   return render(request, 'pages/show.html', {'review': review})
 
 
 def update(request, id):
-  review = Review.objects.get(id = id)
+  review = Review.objects.get(id=id)
   if request.method == "POST":
-    review.title = request.POST['review-title']
-    review.content = request.POST['review-content']
-    review.save()
-    return redirect('/pages/review/'+str(id))
+      review.title = request.POST['review-title']
+      review.content = request.POST['review-content']
+      review.save()
+      return redirect('/pages/review/'+str(id))
   return render(request, 'pages/update.html', {'review': review})
 
 
@@ -83,12 +85,7 @@ def comment(request, id):
     'username': new_comment.author.username,
     'content': new_comment.content,
   }
-
   return JsonResponse(context)
-
-
-# def comment_update(request, id, cid):
-#   comment = ReviewComment.objects.get(id = cid)
 
 
 def comment_delete(request, id, cid):
