@@ -64,7 +64,7 @@ def update(request, id):
     review.title = request.POST['review-title']
     review.content = request.POST['review-content']
     review.save()
-    return render(request, 'pages/show.html', {'review': review})
+    return redirect('/pages/review/'+str(id))
   return render(request, 'pages/update.html', {'review': review})
 
 
