@@ -16,7 +16,7 @@ a, a:link, a:visited {
 /* base.html */
 body {
   width: 85%;
-  margin: 0 auto;
+  margin-left: 100px;
 }
 
 header {
@@ -31,9 +31,16 @@ header {
 header nav {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  width: 50%;
   font-size: 1rem;
   padding: 37px 15px 0px 15px;
+}
+
+nav button {
+  border: 0;
+  font-family: 'Nanum Myeongjo', serif !important;
+  font-weight: bold; 
+  background-color: white;
 }
 
 /* index.html */

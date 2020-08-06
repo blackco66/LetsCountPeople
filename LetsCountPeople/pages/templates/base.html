@@ -5,9 +5,9 @@
     <meta charset="utf-8"/>
     <title>LetsCountPeople</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9piedsx8xm"></script> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'pages/style.css' %}"/>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     {% comment %} bootstrap script cdn은 jqeury cdn 밑에 추가해야 한다! {% endcomment %}
 
   </head>
@@ -20,10 +20,10 @@
       <nav>
         {% if user.is_staff %}
           <button type="button" data-toggle="modal" data-target="#createModal" class="mdl-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">헬스장 추가</i>
+            <i class="material-icons" style="font-style: normal;">헬스장 추가</i>
           </button>
         {% endif %}
-        <a class="link-review" href="/pages/review/">리뷰</a>
+        <a class="link-review" href="/pages/review/" style="font-weight: bold;">리뷰</a>
         <div>{{ user.get_username }}님 안녕하세요!</div>
         <a class="link-logout" href="{% url 'logout' %}?next={{request.path}}">로그아웃</a>
       </nav>
@@ -49,7 +49,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="/pages/add-gym/" method="POST" data-csrfmiddlewaretoken="{{ csrf_token }}" class="add-gym" data-name="gym-name" data-address="gym-adress">
+            <form action="/pages/add-gym/" method="POST" data-csrfmiddlewaretoken="{{ csrf_token }}" class="add-gym" data-name="gym-name" data-address="gym-ad">
               {% csrf_token %}
               <div class="form-group">
                 <label for="gym-name" class="gym-name">헬스장 이름:</label>
