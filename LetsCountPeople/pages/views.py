@@ -27,17 +27,18 @@ def review(request):
   reviews = Review.objects.all()
   return render(request, 'pages/review.html', {'reviews': reviews})
 
-def new_gym(request):
-    name = request.POST['gym-name']
-    address = request.POST['gym-address']
-    if request.POST['gym-latitude'] != '' and request.POST['gym-longitude'] != '':
-      latitude = request.POST['gym-latitude']
-      longitude = request.POST['gym-longitude']
+def add_gym(request):
+    name = request.POST['name']
+    address = request.POST['address']
+    if request.POST['latitude'] != '' and request.POST['longitude'] != '':
+      latitude = request.POST['latitude']
+      longitude = request.POST['longitude']
     else:
       latitude = None
       longitude = None
-    Gym.objects.create(name=name, address=address, latitude=latitude, longitude=longitude)
-    return redirect('/')
+    new_gym = Gym.objects.create(name=name, address=address, latitude=latitude, longitude=longitude)
+
+    return JsonResponse({"message": "created!"} , status=201)
 
 def new(request):
   if request.method == "POST":
