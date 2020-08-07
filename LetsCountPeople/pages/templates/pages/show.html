@@ -4,6 +4,9 @@
   <div style="border: 1px solid black;">
     title: {{ review.title }} <br>
     content: {{ review.content }} <br>
+    {% if feed.photo %}
+      <img src="{{ review.photo.url }}" alt="" width="30%" height="20%">
+    {% endif %}
     hits: {{ review.hits }} <br>
     {% if review.author == request.user %}
       <a href="/pages/review/{{ review.id }}/update/">수정 </a><a href="/pages/review/{{ review.id }}/delete/">삭제</a>

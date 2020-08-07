@@ -7,11 +7,13 @@
 .review-list {
   border: 1px solid black;
   margin: 3px 0;
+  padding: 10px 0;
 }
 
 table {
   font-size: 12px;
   border-collapse: collapse;
+  width: 100%;
 }
 
 .write-button-div {

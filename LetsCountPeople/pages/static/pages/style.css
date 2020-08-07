@@ -23,11 +23,11 @@ body {
 
 header {
   padding: 30px 0px 30px 50px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #868e96;
   font-size: 1.5rem;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 header nav {
@@ -35,7 +35,7 @@ header nav {
   justify-content: space-around;
   width: 50%;
   font-size: 1rem;
-  padding: 37px 15px 0px 15px;
+  padding: 27px 15px 0px 15px;
 }
 
 nav button {
@@ -44,7 +44,10 @@ nav button {
   font-weight: bold; 
   background-color: white;
 }
-
+footer {
+  border-top: 1px solid #868e96;
+  margin-top: 30px;
+}
 /* index.html */
 button {
   cursor: pointer;
