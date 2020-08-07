@@ -38,7 +38,6 @@ class Review(models.Model):
   author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
   title = models.CharField(max_length=40)
   content = models.TextField()
-  photo = models.ImageField(blank=True, upload_to='pages_photos')
   hits = models.IntegerField(default=0)
   created_at = models.DateTimeField(default=timezone.now)
   updated_at = models.DateTimeField(null=True)
