@@ -8,7 +8,10 @@ from django.http import JsonResponse
 def index(request):
     if request.method == 'GET':
         gyms = Gym.objects.all()
-        return render(request, 'pages/index.html', {'gyms': gyms})
+        if gyms.count() > 0:
+            return render(request, 'pages/index.html', {'gyms': gyms, 'first_gym': gyms.first()})
+        else:
+            return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def search_result(request):
@@ -21,7 +24,10 @@ def search_result(request):
             Q(name__icontains=query) | Q(address__icontains=query))
     else:
         gym_names = gym_all
-    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+    if gym_names.count() > 0:
+        return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names, 'first_gym': gym_names.first()})
+    else:
+        return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
 def review(request):
@@ -44,15 +50,16 @@ def add_gym(request):
 
 
 def new(request):
-  if request.method == "POST":
-    gym = Gym.objects.get(id=1)
-    author = request.user
-    title = request.POST['review-title']
-    content = request.POST['review-content']
-    photo = request.FILES.get('photo', False)
-    Review.objects.create(gym=gym, author=author, title=title, content=content, photo=photo)
-    return redirect('/pages/review/')
-  return render(request, 'pages/new.html')
+    if request.method == "POST":
+        gym = Gym.objects.get(id=1)
+        author = request.user
+        title = request.POST['review-title']
+        content = request.POST['review-content']
+        photo = request.FILES.get('photo', False)
+        Review.objects.create(gym=gym, author=author,
+                              title=title, content=content, photo=photo)
+        return redirect('/pages/review/')
+    return render(request, 'pages/new.html')
 
 
 def show(request, id):

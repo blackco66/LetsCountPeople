@@ -20,11 +20,25 @@
   </section>
   {% endfor %}
 </section>
-<input type="hidden" id="gymname" name="gymname" value="defaultname" />
-<input type="hidden" id="gymaddress" name="gymaddress" value="defaultaddress" />
-<input type="hidden" id="gymlatitude" name="gymlatitude" value="37.450768" />
-<input type="hidden" id="gymlongitude" name="gymlongitude" value="126.952468" />
-<input type="hidden" id="gympopulation" name="gympopulation" value="32" />
+{% if first_gym != None %}
+  <input type="hidden" id="gymname" name="gymname" value="{{ first_gym.name }}" />
+  <input type="hidden" id="gymaddress" name="gymaddress" value="{{ first_gym.address }}" />
+    {% if first_gym.latitude != None %}
+      <input type="hidden" id="gymlatitude" name="gymlatitude" value="{{ first_gym.latitude }}" />
+      <input type="hidden" id="gymlongitude" name="gymlongitude" value="{{ first_gym.longitude }}" />
+    {% else %}
+      <input type="hidden" id="gymlatitude" name="gymlatitude" value="37.450768" />
+      <input type="hidden" id="gymlongitude" name="gymlongitude" value="126.952468" />
+    {% endif %}
+  <input type="hidden" id="gympopulation" name="gympopulation" value="{{ gym.currentpeople_set.all.last.num_people }}" />
+{% else %}
+  <input type="hidden" id="gymname" name="gymname" value="defaultname" />
+  <input type="hidden" id="gymaddress" name="gymaddress" value="defaultaddress" />
+  <input type="hidden" id="gymlatitude" name="gymlatitude" value="37.450768" />
+  <input type="hidden" id="gymlongitude" name="gymlongitude" value="126.952468" />
+  <input type="hidden" id="gympopulation" name="gympopulation" value="32" />
+{% endif %}
+
 <script src="{% static 'pages/map.js' %}"></script>  
 </section>
 {% endblock content %}
