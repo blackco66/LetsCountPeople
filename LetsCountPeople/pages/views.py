@@ -48,7 +48,8 @@ def new(request):
     author = request.user
     title = request.POST['review-title']
     content = request.POST['review-content']
-    Review.objects.create(gym=gym, author=author, title=title, content=content)
+    photo = request.FILES.get('photo', False)
+    Review.objects.create(gym=gym, author=author, title=title, content=content, photo=photo)
     return redirect('/pages/review/')
   return render(request, 'pages/new.html')
 

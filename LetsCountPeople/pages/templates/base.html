@@ -27,12 +27,12 @@
         {% endif %}
         <a class="link-review" href="/pages/review/" style="font-weight: bold;">리뷰</a>
         <div>{{ user.get_username }}님 안녕하세요!</div>
-        <a class="link-logout" href="{% url 'logout' %}?next={{request.path}}">로그아웃</a>
+        <a class="link-logout" href="{% url 'account_logout' %}?next={{request.path}}">로그아웃</a>
       </nav>
       {% else %}
         <nav>
           <a class="link-review" href="/pages/review/">리뷰</a>
-          <a class="link-login" href="{% url 'login' %}?next={{request.path}}">로그인</a>
+          <a class="link-login" href="{% url 'account_login' %}?next={{request.path}}">로그인</a>
           <a class="link-signup" href="{% url 'signup' %}">회원가입</a>
         </nav>
       {% endif %}

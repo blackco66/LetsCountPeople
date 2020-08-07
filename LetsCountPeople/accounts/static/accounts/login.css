@@ -1,0 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nanum Myeongjo', serif;
+}
+
+.section-login-wrap {
+  margin: 80px auto;
+  width: 60%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #868e96;
+  border-bottom: 1px solid #868e96;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.section-login {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  height: 60%;
+}
+
+form {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+button {
+  border: 0.5px solid #868e96;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 30px;
+}
+
+.login-to-signup {
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  color: #868e96;
+}
+
+/* .login-to-signup:hover {
+  background-color: #f1f3f5;
+} */
+
+input {
+  text-align: left;
+  width: 200px;
+  height: 48px;
+  font-size: 13px;
+}
+
+.login-social {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
