@@ -5,7 +5,6 @@ $(document).ready(() => {
     const $this = $(e.currentTarget);
     const rid = $this.data('rid');
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-    console.log(`this = ${$this}, rid = ${rid}, csrf = ${csrfmiddlewaretoken}`);
 
     $.ajax({
       type: 'POST',
@@ -13,7 +12,7 @@ $(document).ready(() => {
       data: {
         rid: rid,
         csrfmiddlewaretoken: csrfmiddlewaretoken,
-        content: $(`input#${rid}[name=review-comment]`).val(),
+        content: $(`input#${rid}[name=review-comment]`).val()
       },
       dataType: 'json',
       success: function(response) {
@@ -32,6 +31,7 @@ $(document).ready(() => {
       },
       error: function(response, status, error) {
         console.log(response, status, error);
+        console.log(response.content);
       },
       complete: function(response) {
         console.log(response);
