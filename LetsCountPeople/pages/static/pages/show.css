@@ -1,4 +1,4 @@
-.article {
+article {
   display: block;
 }
 .article-info {
@@ -12,5 +12,9 @@
 }
 
 .article-edit {
+  font-size: 14px;
+}
+.input-style {
+  line-height: 15px;
   font-size: 14px;
 }

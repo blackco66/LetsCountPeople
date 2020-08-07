@@ -80,7 +80,7 @@ def delete(request, id):
 
 def comment(request, id):
     ReviewComment.objects.create(
-        author=request.user, review_id=id, content=request.POST['content'])
+        author=request.user, review_id=id, content=request.POST['review-comment'])
     new_comment = ReviewComment.objects.latest('id')
 
     context = {
@@ -88,7 +88,8 @@ def comment(request, id):
         'username': new_comment.author.username,
         'content': new_comment.content,
     }
-    return JsonResponse(context)
+    review = Review.objects.get(id=id)
+    return render(request, 'pages/show.html', {'review': review})
 
 
 def comment_delete(request, id, cid):
