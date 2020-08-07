@@ -27,8 +27,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: LetsCountPeople
-        environment_name: LetsCountPeople-env
+        application_name: countingpeople
+        environment_name: Countingpeople-env
         region: ap-northeast-2
         version_label: ${{ steps.vars.outputs.sha }}
         deployment_package: deploy.zip
