@@ -33,24 +33,26 @@ function drawMap() {
   });
 
   const contentString = [
-    '<div>',
-    ' <h3>' + locName + '</h3>',
-    ' <p>' + locAddress + ' | ' + locType + '<br/>',
-    ' 현재 사람 수: ' + locPopulation,
-    ' </p>',
+    '<div style="font-family:serif; padding:5px;">',
+    '<div style="font-size:16px;">' + locName + '</div>',
+    '<div style="font-size:12px;">' + locAddress + '</div>',
+    '<div style="font-size:14px;">' +
+      ' 현재 사람 수: ' +
+      locPopulation +
+      '</div>',
     '</div>',
   ].join('');
 
   const infowindow = new naver.maps.InfoWindow({
     content: contentString,
-    maxWidth: 140,
-    backgroundColor: '#eee',
-    borderColor: '#2db400',
-    borderWidth: 5,
-    anchorSize: new naver.maps.Size(30, 30),
+    maxWidth: 250,
+    backgroundColor: '#F0F8FF',
+    borderColor: '#1c7ed6',
+    borderWidth: 1,
+    anchorSize: new naver.maps.Size(10, 10),
     anchorSkew: true,
-    anchorColor: '#eee',
-    pixelOffset: new naver.maps.Point(20, -20),
+    anchorColor: '#F0F8FF',
+    pixelOffset: new naver.maps.Point(0, -5),
   });
 
   naver.maps.Event.addListener(marker, 'click', function (e) {
@@ -60,10 +62,7 @@ function drawMap() {
       infowindow.open(map, marker);
     }
   });
+  infowindow.open(map, marker);
 }
 
 drawMap();
-
-$('[data-onload]').each(function () {
-  eval($(this).data('onload'));
-});
