@@ -8,10 +8,7 @@ from django.http import JsonResponse
 def index(request):
     if request.method == 'GET':
         gyms = Gym.objects.all()
-        if gyms.count() > 0:
-            return render(request, 'pages/index.html', {'gyms': gyms, 'first_gym': gyms.first()})
-        else:
-            return render(request, 'pages/index.html', {'gyms': gyms})
+        return render(request, 'pages/index.html', {'gyms': gyms})
 
 
 def search_result(request):
@@ -24,10 +21,7 @@ def search_result(request):
             Q(name__icontains=query) | Q(address__icontains=query))
     else:
         gym_names = gym_all
-    if gym_names.count() > 0:
-        return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names, 'first_gym': gym_names.first()})
-    else:
-        return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
+    return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
 def review(request):
