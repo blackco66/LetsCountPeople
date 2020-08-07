@@ -9,8 +9,8 @@ import time
 
 gym_name='Gyminthehous'
 time_interval = 10
-url_post = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/pages/pages/get_data/'
-url_login = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/pages/accounts/login/'
+url_post = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/pages/get_data/'
+url_login = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/accounts/login/'
 gym_id = 0
 
 avg = None
@@ -102,6 +102,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         
          
         param = {'gym_name' : gym_name, 'people_num': people_num, 'csrfmiddlewaretoken':csrftoken}
+        #param = {'gym_name' : gym_name, 'people_num': people_num}
         r=client.post(url_post,data=param,headers={'Referer':url_post})
         print(r.status_code)
         bf = time.time()
