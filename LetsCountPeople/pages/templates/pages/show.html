@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <div style="border: 1px solid black;">
-    title: {{ review.title }} <br>
-    content: {{ review.content }} <br>
-    {% if feed.photo %}
-      <img src="{{ review.photo.url }}" alt="" width="30%" height="20%">
-    {% endif %}
-    hits: {{ review.hits }} <br>
-    {% if review.author == request.user %}
-      <a href="/pages/review/{{ review.id }}/update/">수정 </a><a href="/pages/review/{{ review.id }}/delete/">삭제</a>
-    {% endif %}
-  </div>
-  <a class="" href="/pages/review/">목록보기</a>
+  <article>
+    <h4>{{ review.title }}</h4>
+    <div class="article-info">
+      작성자: {{ review.author }} | {{ review.created_at|date:"Y/m/d h:m:s" }} | 조회수: {{ review.hits }}
+    </div>
+    <div class="article-content">
+      {{ review.content }}
+    </div>
+    <div style="font-size:14px;">
+      {% if review.author == request.user %}
+        <a href="/pages/review/{{ review.id }}/update/">수정 </a>|
+        <a href="/pages/review/{{ review.id }}/delete/"> 삭제 </a>|
+      {% endif %}
+      <a href="/pages/review/"> 목록보기</a>
+    </div>
+    <div style="height:5px;"></div>
+  </article>
   <div>
     {% if user.is_authenticated %}
-      <form action="/pages/review/{{ review.id }}/comment/" method="POST" class="comment-submit" data-rid= {{ review.id }} data-csrfmiddlewaretoken="{{ csrf_token }}">
+      <form action="/pages/review/{{ review.id }}/comment/" method="POST" class="comment-submit" data-rid={{ review.id }} data-csrfmiddlewaretoken="{{ csrf_token }}">
         {% csrf_token %}
-        <input id="{{ review.id }}" type="text" name="review-comment" placeholder="댓글 입력" />
-        <input type="submit" value="댓글 달기" />
+        <input id="{{ review.id }}" type="text" name="review-comment" style="line-height: 15px; font-size: 12px;" placeholder="댓글 입력" />
+        <input type="submit" style="line-height: 15px; font-size: 12px;" value="댓글 달기" />
       </form>
     {% endif %}
     {% for comment in review.reviewcomment_set.all %}
