@@ -44,16 +44,14 @@ def add_gym(request):
 
 
 def new(request):
-    if request.method == "POST":
-        gym = Gym.objects.get(id=1)
-        author = request.user
-        title = request.POST['review-title']
-        content = request.POST['review-content']
-        photo = request.FILES.get('photo', False)
-        Review.objects.create(gym=gym, author=author,
-                              title=title, content=content, photo=photo)
-        return redirect('/pages/review/')
-    return render(request, 'pages/new.html')
+  if request.method == "POST":
+    gym = Gym.objects.get(id=1)
+    author = request.user
+    title = request.POST['review-title']
+    content = request.POST['review-content']
+    Review.objects.create(gym=gym, author=author, title=title, content=content)
+    return redirect('/pages/review/')
+  return render(request, 'pages/new.html')
 
 
 def show(request, id):
@@ -63,14 +61,14 @@ def show(request, id):
     return render(request, 'pages/show.html', {'review': review})
 
 
-def update(request, id):
+def edit(request, id):
     review = Review.objects.get(id=id)
     if request.method == "POST":
         review.title = request.POST['review-title']
         review.content = request.POST['review-content']
         review.save()
         return redirect('/pages/review/'+str(id))
-    return render(request, 'pages/update.html', {'review': review})
+    return render(request, 'pages/edit.html', {'review': review})
 
 
 def delete(request, id):
@@ -80,8 +78,7 @@ def delete(request, id):
 
 
 def comment(request, id):
-    ReviewComment.objects.create(
-        author=request.user, review_id=id, content=request.POST['review-comment'])
+    ReviewComment.objects.create(author=request.user, review_id=id, content=request.POST['content'])
     new_comment = ReviewComment.objects.latest('id')
 
     context = {
@@ -89,8 +86,7 @@ def comment(request, id):
         'username': new_comment.author.username,
         'content': new_comment.content,
     }
-    review = Review.objects.get(id=id)
-    return render(request, 'pages/show.html', {'review': review})
+    return JsonResponse(context)
 
 
 def comment_delete(request, id, cid):

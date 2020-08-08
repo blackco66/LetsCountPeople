@@ -25,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', pages.views.index, name="index"),
     path('pages/', include('pages.urls')),
-    path('account/signup/', accounts.views.signup, name="signup"),
+    # path('accounts/signup/', accounts.views.signup, name="signup"),
+    path('accounts/login/', accounts.views.login, name="login"),
     path('accounts/', include('allauth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

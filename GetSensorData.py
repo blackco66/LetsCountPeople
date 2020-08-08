@@ -9,8 +9,8 @@ import time
 
 gym_name='Gyminthehous'
 time_interval = 10
-url_post = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/pages/get_data/'
-url_login = 'http://countingpeople-env.eba-muax6get.ap-northeast-2.elasticbeanstalk.com/accounts/login/'
+url_post = 'http://countwebservice-env.eba-mgxywmfq.ap-northeast-2.elasticbeanstalk.com/pages/get_data/'
+url_login = 'http://countwebservice-env.eba-mgxywmfq.ap-northeast-2.elasticbeanstalk.com/accounts/login/'
 gym_id = 0
 
 avg = None
