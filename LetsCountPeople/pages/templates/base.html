@@ -34,12 +34,14 @@
         <nav>
           <a class="link-review" href="/pages/review/">리뷰</a>
           <a class="link-login" href="{% url 'login' %}?next={{request.path}}">로그인</a>
-          <a class="link-signup" href="{% url 'signup' %}">회원가입</a>
+          <a class="link-signup" href="{% url 'account_signup' %}">회원가입</a>
         </nav>
       {% endif %}
     </header>
-    {% block content %}
-    {% endblock %}
+    <section class="main-section">
+      {% block content %}
+      {% endblock %}
+    </section>
     <footer>
     </footer>
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
