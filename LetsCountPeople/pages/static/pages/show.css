@@ -38,11 +38,10 @@
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  background-color: #f8f9fa;
 }
 
 .review-comment {
   display: flex;
   justify-content: space-between;
-  background-color: #f8f9fa;
-
 }

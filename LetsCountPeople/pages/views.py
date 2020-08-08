@@ -78,9 +78,8 @@ def delete(request, id):
 
 
 def comment(request, id):
-    ReviewComment.objects.create(author=request.user, review_id=id, content=request.POST['content'])
-    new_comment = ReviewComment.objects.latest('id')
-
+    new_comment = ReviewComment.objects.create(author=request.user, review_id=id, content=request.POST['content'])
+    
     context = {
         'id': new_comment.id,
         'username': new_comment.author.username,
@@ -93,7 +92,7 @@ def comment_delete(request, id, cid):
     review = Review.objects.get(id=id)
     comment = ReviewComment.objects.get(id=cid)
     comment.delete()
-    return render(request, 'pages/show.html', {'review': review})
+    return redirect('/pages/review/'+str(id))
 
 
 def get_data(request):
