@@ -1,6 +1,5 @@
 {% load static %}
 {% load socialaccount %}
-{% providers_media_js %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,18 +19,12 @@
       <section class="section-login">
         <form action="{% url 'account_login' %}" method="POST" id="login-form" data-csrfmiddlewaretoken="{{ csrf_token }}">
           {% csrf_token %}        
-          <input id="login-user-id" type="text" name="login-username" placeholder="ID" autocomplete="username">
+          <input id="login-user-id" type="text" name="username" placeholder="ID" autocomplete="username">
           <input id="login-user-password" type="password" name="password" placeholder="PASSWORD" autocomplete="current-password">
           <input type="hidden" name="next" value="{{next}}" />
           <button type="submit">로그인</button>
         </form>
         <div class="login-social">
-          <a href="{% provider_login_url 'google'%}">
-            <img src="/media/google_login.png" style="width: 200px; height: auto;"/></a>
-          </a>
-          {% comment %} <a href="{% provider_login_url "facebook" method="oauth2" %}">
-            <div class="fb-login-button" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width="" width="100"></div>
-          </a> {% endcomment %}
           <button class="login-to-signup" type="button" onclick="location.href='/accounts/signup/' ">회원가입</button>
         </div>
       </section>
