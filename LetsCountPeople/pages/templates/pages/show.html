@@ -33,7 +33,7 @@
           <form action="/pages/review/{{ review.id }}/comment/" method="POST" class="comment-submit" data-rid={{ review.id }} data-csrfmiddlewaretoken="{{ csrf_token }}">
             {% csrf_token %}
             <input class="input-content" id="{{ review.id }}" type="text" name="comment" style="line-height: 15px; font-size: 12px;" placeholder="댓글 입력" />
-            <input class="input-sumnit" type="submit" style="line-height: 15px; font-size: 12px;" value="댓글 달기" />
+            <input class="input-submit" type="submit" style="line-height: 15px; font-size: 12px;" value="댓글 달기" />
           </form>
         </div>
       {% endif %}

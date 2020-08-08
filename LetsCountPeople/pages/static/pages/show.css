@@ -32,6 +32,9 @@
 .input-submit {
   width: 7%;
   height: 50px;
+  background-color: white;
+  border: 0.7px solid black;
+  border-radius: 3px;
 }
 
 .comment-wrapper {
@@ -39,6 +42,10 @@
   display: flex;
   flex-direction: column;
   background-color: #f8f9fa;
+}
+
+.comment-submit {
+  display: flex;
 }
 
 .review-comment {
