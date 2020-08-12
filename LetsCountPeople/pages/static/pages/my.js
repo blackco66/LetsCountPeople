@@ -1,4 +1,7 @@
 $(document).ready(() => {
+
+  // 새로고침 없이 댓글 생성하는 함수
+
   $('.comment-submit').submit((e) => {
     e.preventDefault();
     console.log('form submitted');
@@ -23,7 +26,9 @@ $(document).ready(() => {
         const str = `
         <div class="review-comment">
           <div><strong>${ username }</strong> | ${ content }</div>
-          <div><a href="/pages/review/${ rid }/comment/${ cid }/delete/">삭제</a></div>
+          <form class="comment-delete" data-rid="{{ review.id }}" data-cid="{{ comment.id }}" data-csrfmiddlewaretoken="{{ csrf_token }}">
+            <button type="submit">삭제</button>
+          </form>
         </div>
         `;
 
@@ -41,5 +46,35 @@ $(document).ready(() => {
         console.log(response);
       }
     });
-  })
+  });
+
+  // 새로고침 없이 댓글 삭제하는 함수
+
+  $('.comment-delete').submit((e) => {
+    e.preventDefault();
+    const $this = $(e.currentTarget);
+    const rid = $this.data('rid');
+    const cid = $this.data('cid');
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+      type: 'POST',
+      url: `/pages/review/${rid}/comment/${cid}/delete/`,
+      data: {
+        csrfmiddlewaretoken: csrfmiddlewaretoken,
+      },
+      dataType: 'json',
+      success: function(response) {
+        console.log('success');
+        $this.parent().remove();
+      },
+      error: function(response, status, error) {
+        console.log('error');
+        console.log(response, status, error);
+      },
+      complete: function(response) {
+        console.log(response);
+      }
+    });
+  });
 })

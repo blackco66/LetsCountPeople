@@ -92,7 +92,7 @@ def comment_delete(request, id, cid):
     review = Review.objects.get(id=id)
     comment = ReviewComment.objects.get(id=cid)
     comment.delete()
-    return redirect('/pages/review/'+str(id))
+    return JsonResponse({'message' : 'deleted!'})
 
 
 def get_data(request):
