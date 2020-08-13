@@ -12,7 +12,7 @@ urlpatterns = [
     path('review/<int:id>/delete/', pages.views.delete, name='delete'),
     path('review/<int:id>/comment/', pages.views.comment, name='comment'),
     path('review/<int:id>/comment/<int:cid>/delete/', pages.views.comment_delete, name="comment_delete"),
-    # path('review/<intLid>/rec/', pages.views.review_recommend, name="review_rec"),
+    path('review/<int:id>/rec/', pages.views.review_recommend, name="review_rec"),
     path('get_data/', pages.views.get_data, name='get_data'),
     path('add-gym/',pages.views.add_gym, name='new_gym'),
 ]

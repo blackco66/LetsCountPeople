@@ -5,12 +5,13 @@
     <article>
       <h4>{{ review.title }}</h4>
       <div class="article-info">
-        작성자: {{ review.author }} | {{ review.gym.name }} | {{ review.created_at|date:"Y/m/d h:m:s" }} | 조회수: {{ review.hits }}
+        작성자: {{ review.author }} | {{ review.gym.name }} | {{ review.created_at|date:"y/m/d H:m:s" }} | 조회수: {{ review.hits }}
       </div>
       <div class="article-content">
-        {{ review.content }}
+        <div>{{ review.content }}</div>
+        <div class="content-recommend"><a href="/pages/review/{{ review.id }}/rec/">추천: {{ review.rec_users.count }}</a></div>
       </div>
-      <div style="font-size:14px;">
+      <div style="font-size:14px; text-align: right;">
         {% if review.author == request.user %}
           <a href="/pages/review/{{ review.id }}/edit/"> 수정 </a>|
           <a href="/pages/review/{{ review.id }}/delete/"> 삭제 </a>|

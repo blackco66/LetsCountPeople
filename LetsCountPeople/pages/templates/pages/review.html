@@ -9,8 +9,9 @@
   <div class="review-list">
     <table>
       <colgroup>
-        <col style="width:15%">
+        <col style="width:20%">
         <col>
+        <col style="width:10%">
         <col style="width:10%">
         <col style="width:6%">
         <col style="width:6%">
@@ -20,6 +21,7 @@
           <th scope="col">매장이름</th>
           <th scope="col">제목</th>
           <th scope="col">글쓴이</th>
+          <th scope="col">추천수</th>
           <th scope="col">작성일</th>
           <th scope="col">조회수</th>
         </tr>
@@ -27,11 +29,12 @@
       <tbody>
         {% for review in reviews reversed %}
           <tr>
-            <td style="text-align:center;">{{ review.gym.name }}</td>
-            <td><a href="/pages/review/{{ review.id }}/">{{ review.title }} [{{ review.reviewcomment_set.count }}]</a></td>
-            <td style="text-align:center;">{{ review.author }}</td>
-            <td style="text-align:center;">{{review.created_at|date:"Y/m/d" }}</td>
-            <td style="text-align:center;">{{ review.hits }}</td>
+            <td>{{ review.gym.name }}</td>
+            <td style="text-align: left;"><a href="/pages/review/{{ review.id }}/">{{ review.title }} [{{ review.reviewcomment_set.count }}]</a></td>
+            <td>{{ review.author }}</td>
+            <td>0</td>
+            <td>{{ review.created_at|date:"y/m/d" }}</td>
+            <td>{{ review.hits }}</td>
           </tr>
         {% endfor %}
       </tbody>
