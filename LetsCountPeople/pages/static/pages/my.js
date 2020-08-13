@@ -26,7 +26,7 @@ $(document).ready(() => {
         const str = `
         <div class="review-comment">
           <div><strong>${ username }</strong> | ${ content }</div>
-          <form class="comment-delete" data-rid="{{ review.id }}" data-cid="{{ comment.id }}" data-csrfmiddlewaretoken="{{ csrf_token }}">
+          <form class="comment-delete" data-rid="${ rid }" data-cid="${ cid }" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">
             <button type="submit">삭제</button>
           </form>
         </div>
@@ -49,8 +49,8 @@ $(document).ready(() => {
   });
 
   // 새로고침 없이 댓글 삭제하는 함수
-
-  $('.comment-delete').submit((e) => {
+  // 왜 문제가 없는거지????
+  $(document).on('submit', '.comment-delete', function(e) {
     e.preventDefault();
     const $this = $(e.currentTarget);
     const rid = $this.data('rid');
