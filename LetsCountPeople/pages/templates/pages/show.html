@@ -5,7 +5,7 @@
     <article>
       <h4>{{ review.title }}</h4>
       <div class="article-info">
-        작성자: {{ review.author }} | {{ review.created_at|date:"Y/m/d h:m:s" }} | 조회수: {{ review.hits }} | {{ review.gym.name }}
+        작성자: {{ review.author }} | {{ review.gym.name }} | {{ review.created_at|date:"Y/m/d h:m:s" }} | 조회수: {{ review.hits }}
       </div>
       <div class="article-content">
         {{ review.content }}
