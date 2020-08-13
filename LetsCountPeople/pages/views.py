@@ -45,13 +45,14 @@ def add_gym(request):
 
 def new(request):
   if request.method == "POST":
-    gym = Gym.objects.get(id=1)
+    gym = Gym.objects.get(name=request.POST['gym'])
     author = request.user
     title = request.POST['review-title']
     content = request.POST['review-content']
     Review.objects.create(gym=gym, author=author, title=title, content=content)
     return redirect('/pages/review/')
-  return render(request, 'pages/new.html')
+  gyms = Gym.objects.all()
+  return render(request, 'pages/new.html', {'gyms': gyms})
 
 
 def show(request, id):

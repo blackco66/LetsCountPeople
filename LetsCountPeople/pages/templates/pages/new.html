@@ -10,6 +10,14 @@
   <label for="review-content">내용: </label>
   <input id="review-content" type="text" name="review-content" placeholder="내용"> <br>
 
+  <p> 헬스장 지점: 
+    <select name="gym">
+      <option value="">직접입력</option>
+      {% for gym in gyms %}
+      <option value="{{ gym.name }}">{{ gym.name }}</option>
+      {% endfor %}
+    </select> <br>
+  </p>
   <input type="submit" value="작성">
 </form>
 {% endblock content %}
