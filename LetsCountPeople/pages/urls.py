@@ -1,18 +1,19 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-import pages.views
+from pages import views
 
 urlpatterns = [
-    path('', pages.views.search_result, name='search_result'),
-    path('review/', pages.views.review, name='review'),
-    path('review/new/', pages.views.new, name='new'),
-    path('review/<int:id>/', pages.views.show, name='show'),
-    path('review/<int:id>/edit/', pages.views.edit, name='edit'),
-    path('review/<int:id>/delete/', pages.views.delete, name='delete'),
-    path('review/<int:id>/comment/', pages.views.comment, name='comment'),
-    path('review/<int:id>/comment/<int:cid>/delete/', pages.views.comment_delete, name="comment_delete"),
-    path('review/<int:id>/rec/', pages.views.review_recommend, name="review_rec"),
-    path('get_data/', pages.views.get_data, name='get_data'),
-    path('add-gym/',pages.views.add_gym, name='new_gym'),
+    path('', views.search_result, name='search_result'),
+    path('review/', views.review, name='review'),
+    path('review/new/', views.new, name='new'),
+    path('review/<int:id>/', views.show, name='show'),
+    path('review/<int:id>/edit/', views.edit, name='edit'),
+    path('review/<int:id>/delete/', views.delete, name='delete'),
+    path('review/<int:id>/comment/', views.comment, name='comment'),
+    path('review/<int:id>/comment/<int:cid>/delete/', views.comment_delete, name="comment_delete"),
+    path('review/<int:id>/rec/', views.review_recommend, name="review_rec"),
+    path('review/<int:id>/comment/<int:cid>/rec/', views.comment_recommend, name="comment_rec"),
+    path('get_data/', views.get_data, name='get_data'),
+    path('add-gym/', views.add_gym, name='new_gym'),
 ]

@@ -23,7 +23,7 @@
     <div class="comment-wrapper">
       {% for comment in review.reviewcomment_set.all %}
         <div class="review-comment">
-          <div><strong>{{ comment.author }}</strong> | {{ comment.content }}</div>
+          <div><strong>{{ comment.author }}</strong> | {{ comment.content }} | <a href="/pages/review/{{ review.id }}/comment/{{ comment.id }}/rec/">추천: {{ comment.rec_users.count }}</a></div>
           {% if request.user == comment.author %}
             <form class="comment-delete" data-rid="{{ review.id }}" data-cid="{{ comment.id }}" data-csrfmiddlewaretoken="{{ csrf_token }}">
               {% csrf_token %}

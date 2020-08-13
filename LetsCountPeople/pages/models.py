@@ -51,6 +51,7 @@ class ReviewComment(models.Model):
   author = models.ForeignKey(User, on_delete=models.CASCADE)
   review = models.ForeignKey(Review, on_delete=models.CASCADE)
   content = models.CharField(max_length=40)
+  rec_users = models.ManyToManyField(User, blank=True, related_name='rec_comments', through='CommentRec')
   created_at = models.DateTimeField(default=timezone.now)
   updated_at = models.DateTimeField(null=True)
 
@@ -66,3 +67,11 @@ class ReviewRec(models.Model):
   def __str__(self):
     return '%s recommend %s' % (self.user.username, self.review.title)
 
+
+class CommentRec(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  comment = models.ForeignKey(ReviewComment, on_delete=models.CASCADE)
+  created_at = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return '%s recommend %s' % (self.user.username, self.comment.author)

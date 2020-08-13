@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
-from pages.models import Gym, CurrentPeople, Review, ReviewComment,ReviewRec
+from pages.models import Gym, CurrentPeople, Review, ReviewComment
+from pages.models import ReviewRec, CommentRec
 from django.http import JsonResponse
 
 
@@ -114,4 +115,17 @@ def review_recommend(request, id):
   else:
     ReviewRec.objects.create(user = user, review = review)
   
+  return redirect('/pages/review/'+str(id))
+
+
+def comment_recommend(request, id, cid):
+  comment = ReviewComment.objects.get(id=cid)
+  user = request.user
+  rec_already = CommentRec.objects.filter(user_id = user.id, comment_id = cid)
+
+  if rec_already:
+    rec_already.delete()
+  else:
+    CommentRec.objects.create(user=user, comment=comment)
+
   return redirect('/pages/review/'+str(id))
