@@ -32,7 +32,7 @@
             <td>{{ review.gym.name }}</td>
             <td style="text-align: left;"><a href="/pages/review/{{ review.id }}/">{{ review.title }} [{{ review.reviewcomment_set.count }}]</a></td>
             <td>{{ review.author }}</td>
-            <td>0</td>
+            <td>{{ review.rec_users.count }}</td>
             <td>{{ review.created_at|date:"y/m/d" }}</td>
             <td>{{ review.hits }}</td>
           </tr>
