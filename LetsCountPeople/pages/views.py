@@ -35,6 +35,32 @@ def reviews(request):
   return render(request, 'pages/review.html', {'reviews': reviews})
 
 
+class ReviewListView(ListView):
+  model = Review
+  template_name = "pages/review.html"
+  context_object_name = 'reviews'
+  paginated_by = 10
+
+  def get_context_data(self, **kwargs):
+    context = super(ReviewListView, self).get_context_data(**kwargs)
+    paginator = context['paginator']
+    page_numbers_range = 10
+    max_index = len(paginator.page_range)
+
+    page = self.request.GET.get('page')
+    current_page = int(page) if page else 1
+
+    start_index = int((current_page - 1) / page_numbers_range ) * page_numbers_range
+    end_index = start_index + page_numbers_range
+
+    if end_index >= max_index:
+      end_index = max_index
+
+    page_range = paginator.page_range[start_index:end_index]
+    context['page_range'] = page_range
+    return context
+
+
 def add_gym(request):
   name = request.POST['name']
   address = request.POST['address']

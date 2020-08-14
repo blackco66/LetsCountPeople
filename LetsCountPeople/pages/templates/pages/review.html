@@ -40,15 +40,17 @@
       </tbody>
     </table>
 
-    <div class="review-list">
-      {% if reviews.has_previous %}
-        <a href="?review=1">맨 앞으로</a>
-        <a href="?review={{ reviews.previous_page_number }}">이전으로</a>
+    <div class="page-list">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">시작</a>
+        <a href="?page={{ page_obj.previous_page_number }}">이전</a>
       {% endif %}
-      <span>{{ reviews.number }} / {{ reviews.paginator.num_pages }}</span>
-      {% if reviews.has_next %}
-        <a href="?review={{ reviews.next_page_number }}">다음으로</a>
-        <a href="?review={{ reviews.paginator.num_pages }}">마지막으로</a>
+      {% for page in page_range %}
+        <a href="?page={{ page }}">{{ page }}</a>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">마지막</a>
       {% endif %}
     </div>
   </div>
