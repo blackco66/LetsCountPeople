@@ -4,6 +4,8 @@ from django.db.models import Q
 from pages.models import Gym, CurrentPeople, Review, ReviewComment
 from pages.models import ReviewRec, CommentRec
 from django.http import JsonResponse
+from django.core.paginator import Paginator
+from django.views.generic import ListView
 
 
 def index(request):
@@ -25,8 +27,11 @@ def search_result(request):
   return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
-def review(request):
-  reviews = Review.objects.all()
+def reviews(request):
+  review_list = Review.objects.order_by('-created_at')
+  paginator = Paginator(review_list, 10)
+  review = request.GET.get('review')
+  reviews = paginator.get_page(review)
   return render(request, 'pages/review.html', {'reviews': reviews})
 
 
@@ -44,9 +49,10 @@ def add_gym(request):
   return JsonResponse({"message": "created!"}, status=201)
 
 
-def new(request):
+def new(request): 
   if request.method == "POST":
-    gym = Gym.objects.get(name=request.POST['gym'])
+    name = request.POST['gym']
+    gym = Gym.objects.get(name=name)
     author = request.user
     title = request.POST['review-title']
     content = request.POST['review-content']

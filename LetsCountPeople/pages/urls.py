@@ -5,7 +5,7 @@ from pages import views
 
 urlpatterns = [
     path('', views.search_result, name='search_result'),
-    path('review/', views.review, name='review'),
+    path('review/', views.reviews, name='review'),
     path('review/new/', views.new, name='new'),
     path('review/<int:id>/', views.show, name='show'),
     path('review/<int:id>/edit/', views.edit, name='edit'),
