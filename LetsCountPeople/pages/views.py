@@ -39,7 +39,7 @@ class ReviewListView(ListView):
   model = Review
   template_name = "pages/review.html"
   context_object_name = 'reviews'
-  paginated_by = 10
+  paginate_by = 10
 
   def get_context_data(self, **kwargs):
     context = super(ReviewListView, self).get_context_data(**kwargs)
