@@ -39,6 +39,7 @@
         {% endfor %}
       </tbody>
     </table>
+
     {% if is_paginated %}
     <div class="page-list">
       {% if page_obj.has_previous %}
@@ -54,6 +55,7 @@
       {% endif %}
     </div>
     {% endif %}
+    
   </div>
   {% if user.is_authenticated %}
     <div class="write-button-div">

@@ -61,6 +61,31 @@ class ReviewListView(ListView):
     return context
 
 
+def post_list(request):
+  page = request.GET.get('page', '1')
+  if page == "":
+    page = '1'
+
+  page = int(page)
+
+  qs = Review.objects.all()
+
+  num = 10
+  paginator = Paginator(qs, num)
+  qs = paginator.page(page)
+
+  start_index = 1
+  for i in reversed(range(1, page + 1)):
+    if i % num == 1:
+      start_index = i
+      break
+  
+  end_index = start_index + num
+
+  page_range = range(start_index, end_index)
+  return render(request, 'pages/review.html', {'reviews': qs, 'page_range': page_range})
+
+
 def add_gym(request):
   name = request.POST['name']
   address = request.POST['address']
