@@ -5,7 +5,6 @@ from pages.models import Gym, CurrentPeople, Review, ReviewComment
 from pages.models import ReviewRec, CommentRec
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from django.views.generic import ListView
 
 
 def index(request):
@@ -27,63 +26,26 @@ def search_result(request):
   return render(request, 'pages/index.html', {'query': query, 'gyms': gym_names})
 
 
-def reviews(request):
-  review_list = Review.objects.order_by('-created_at')
-  paginator = Paginator(review_list, 10)
-  review = request.GET.get('review')
-  reviews = paginator.get_page(review)
-  return render(request, 'pages/review.html', {'reviews': reviews})
+def review_list(request):
+  reviews = Review.objects.order_by('-id')
+  page = int(request.GET.get('page', '1'))
+  paginator = Paginator(reviews, 10)
+  review_page = paginator.page(page)
 
-
-class ReviewListView(ListView):
-  model = Review
-  template_name = "pages/review.html"
-  context_object_name = 'reviews'
-  paginate_by = 10
-
-  def get_context_data(self, **kwargs):
-    context = super(ReviewListView, self).get_context_data(**kwargs)
-    paginator = context['paginator']
-    page_numbers_range = 10
-    max_index = len(paginator.page_range)
-
-    page = self.request.GET.get('page')
-    current_page = int(page) if page else 1
-
-    start_index = int((current_page - 1) / page_numbers_range ) * page_numbers_range
-    end_index = start_index + page_numbers_range
-
-    if end_index >= max_index:
-      end_index = max_index
-
-    page_range = paginator.page_range[start_index:end_index]
-    context['page_range'] = page_range
-    return context
-
-
-def post_list(request):
-  page = request.GET.get('page', '1')
-  if page == "":
-    page = '1'
-
-  page = int(page)
-
-  qs = Review.objects.all()
-
-  num = 10
-  paginator = Paginator(qs, num)
-  qs = paginator.page(page)
-
+  page_num = 10
   start_index = 1
+
   for i in reversed(range(1, page + 1)):
-    if i % num == 1:
+    if i % page_num == 1:
       start_index = i
-      break
-  
-  end_index = start_index + num
+      break;
+
+  end_index = start_index + page_num
+  if end_index > paginator.num_pages:
+    end_index = paginator.num_pages + 1
 
   page_range = range(start_index, end_index)
-  return render(request, 'pages/review.html', {'reviews': qs, 'page_range': page_range})
+  return render(request, 'pages/review.html', {'reviews': review_page, 'page_range': page_range})
 
 
 def add_gym(request):
