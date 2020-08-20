@@ -5,6 +5,7 @@ from pages.models import Gym, CurrentPeople, Review, ReviewComment
 from pages.models import ReviewRec, CommentRec
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -27,7 +28,27 @@ def search_result(request):
 
 
 def review_list(request):
-  reviews = Review.objects.order_by('-id')
+  if request.method == "POST":
+    search_v = request.POST['search-value']
+    review_all = Review.objects.all().order_by('-id')
+
+    if request.POST['search-type'] == "title":
+      reviews = review_all.filter(title__icontains=search_v)
+    elif request.POST['search-type'] == "content":
+      reviews = review_all.filter(content__icontains=search_v)
+    elif request.POST['search-type'] == "author":
+      author = User.objects.all().get(username__icontains=search_v).id
+      reviews = review_all.filter(author_id=author)
+    elif request.POST['search-type'] == "gym":
+      gym = Gym.objects.all().get(name__icontains=search_v).id
+      reviews = review_all.filter(gym_id=gym)
+    elif request.POST['search-type'] == "title-content":
+      reviews = review_all.filter(
+        Q(title__icontains=search_v) | Q(content__icontains=search_v))
+
+  else:
+    reviews = Review.objects.order_by('-id')
+
   page = int(request.GET.get('page', '1'))
   paginator = Paginator(reviews, 10)
   review_page = paginator.page(page)
