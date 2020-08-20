@@ -16,11 +16,11 @@
         <h1 style="font-size: 50px; padding-top: 50px; font-weight: bolder;">지금 가도 될까?</h1>
       </a>
       <section class="section-login">
-        <form action="/accounts/login/" method="post">
+        <form action="/accounts/login/?next={{ redirect_to }}" method="post">
           {% csrf_token %}        
           <input id="login-user-id" type="text" name="login-username" placeholder="ID" autocomplete="username">
           <input id="login-user-password" type="password" name="password" placeholder="PASSWORD" autocomplete="current-password">
-          <input type="hidden" name="next" value="{{next}}" />
+          {% comment %} <input type="hidden" name="next" value="{{next}}" /> login을 view로 구현할 때 이 코드는 필요하지 않음!{% endcomment %}
           <button type="submit">로그인</button>
         </form>
         <div class="login-social">

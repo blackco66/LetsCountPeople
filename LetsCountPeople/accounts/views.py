@@ -14,9 +14,10 @@ def signup(request):
   return render(request, 'accounts/signup.html')
 
 def login(request):
+  redirect_to = request.GET.get('next', '/pages/')
   if request.method == "POST":
     user = auth.authenticate(request, username = request.POST['login-username'], password = request.POST['password'])
     if user is not None:
       auth.login(request, user)
-      return redirect('/pages/')
-  return render(request, 'accounts/login.html')
+      return redirect(redirect_to)
+  return render(request, 'accounts/login.html', {'redirect_to': redirect_to})
