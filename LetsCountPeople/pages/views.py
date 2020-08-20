@@ -45,7 +45,8 @@ def review_list(request):
     end_index = paginator.num_pages + 1
 
   page_range = range(start_index, end_index)
-  return render(request, 'pages/review.html', {'reviews': review_page, 'page_range': page_range})
+  current = page
+  return render(request, 'pages/review.html', {'reviews': review_page, 'page_range': page_range, 'current': current})
 
 
 def add_gym(request):

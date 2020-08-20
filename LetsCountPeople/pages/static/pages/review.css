@@ -35,3 +35,12 @@ td {
   border-top: 1px solid black;
   text-align: center;
 }
+
+.page-list {
+  width: 30%;
+  margin: 0 auto;
+}
+
+a.activate {
+  font-weight: 900;
+}

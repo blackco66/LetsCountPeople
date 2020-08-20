@@ -39,26 +39,27 @@
         {% endfor %}
       </tbody>
     </table>
-
-    <div class="page-list">
-      {% if reviews.has_previous %}
-        <a href="?page=1">시작</a>
-        <a href="?page={{ reviews.previous_page_number }}">이전</a>
-      {% endif %}
-      {% for page in page_range %}
-        <a href="?page={{ page }}">{{ page }}</a>
-      {% endfor %}
-      {% if reviews.has_next %}
-        <a href="?page={{ reviews.next_page_number }}">다음</a>
-        <a href="?page={{ reviews.paginator.num_pages }}">마지막</a>
-      {% endif %}
-    </div>
-    
   </div>
+
+  <div class="page-list">
+    {% if reviews.has_previous %}
+      <a href="?page=1">시작</a>
+      <a href="?page={{ reviews.previous_page_number }}">이전</a>
+    {% endif %}
+    {% for page in page_range %}
+      <a {% if page == current %}class="activate"{% endif %} href="?page={{ page }}">{{ page }}</a>
+    {% endfor %}
+    {% if reviews.has_next %}
+      <a href="?page={{ reviews.next_page_number }}">다음</a>
+      <a href="?page={{ reviews.paginator.num_pages }}">마지막</a>
+    {% endif %}
+  </div>
+
   {% if user.is_authenticated %}
     <div class="write-button-div">
       <button class="write-button"><a href="/pages/review/new/">글쓰기</a></button>
     </div>
-</div>
   {% endif %}
+
+</div>
 {% endblock content %}
