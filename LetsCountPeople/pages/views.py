@@ -28,6 +28,7 @@ def search_result(request):
 
 
 def review_list(request):
+  error = ""
   if request.method == "POST":
     search_v = request.POST['search-value']
     review_all = Review.objects.all().order_by('-id')
@@ -46,6 +47,8 @@ def review_list(request):
       reviews = review_all.filter(
         Q(title__icontains=search_v) | Q(content__icontains=search_v))
 
+    if reviews.count() == 0:
+      error = "조건을 만족하는 게시글이 없습니다!"
   else:
     reviews = Review.objects.order_by('-id')
 
@@ -67,7 +70,8 @@ def review_list(request):
 
   page_range = range(start_index, end_index)
   current = page
-  return render(request, 'pages/review.html', {'reviews': review_page, 'page_range': page_range, 'current': current})
+  return render(request, 'pages/review.html',
+                {'reviews': review_page, 'page_range': page_range, 'current': current, 'error': error})
 
 
 def add_gym(request):

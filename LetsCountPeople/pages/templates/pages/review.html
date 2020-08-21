@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% if error %}
+<script type="text/javascript">
+    alert("{{error}}");
+</script>
+{% endif %}
+
 <div class="review-wrapper">
   {% if user.is_authenticated %}
     <div class="write-button-div">
