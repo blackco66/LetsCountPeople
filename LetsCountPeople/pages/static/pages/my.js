@@ -34,13 +34,21 @@ $(document).ready(() => {
 
         // 만든 댓글을 주입. this는 댓글을 입력하는 input을 의미하므로 this 이후에 댓글이 달리게 함.
         
-        $(str).insertAfter($('.review-comment:last'));
+        if ( $('.review-comment').length ) {
+          console.log('1');
+          $(str).insertAfter($('.review-comment:last'));
+        }
+        else {
+          console.log('2');
+          $('.comment-wrapper').prepend(str);
+        }
+        
 
         // 만들어주고, 새롭게 보여주기까지 했으면 댓글 입력창을 비워줘야 한다.
         $(`input#${rid}[name=comment]`).val('');
       },
       error: function(response, status, error) {
-        console.log(response, status, error);
+        console.log('error');
         console.log(response.content);
       },
       complete: function(response) {
