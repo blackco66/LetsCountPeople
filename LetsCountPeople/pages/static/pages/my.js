@@ -78,4 +78,34 @@ $(document).ready(() => {
       }
     });
   });
+
+  // 리뷰 추천할 때 redirect 없이 추천 div 영역만 새로고침하는 함수
+  $('.feed-rec').click( (e) => {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
+    const id = $this.data('id');
+    const rid = $this.data('rid');
+
+    $.ajax({
+      type: 'GET',
+      url: `/pages/review/${rid}/rec/`,
+      data: {
+        id: id,
+        rid: rid,
+      },
+      dataType: 'json',
+      success: function(response) {
+        const str = `추천: ${response.count}`
+        $this.html(str)
+      },
+      error: function(response, status, error) {
+        console.log('error');
+        console.log(response, status, error);
+      },
+      complete: function(response) {
+      }
+    })
+  })
 })
+

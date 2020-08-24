@@ -150,17 +150,21 @@ def get_data(request):
   return redirect('/')
 
 
-def review_recommend(request, id):
-  review = Review.objects.get(id=id)
-  user = request.user 
+def review_recommend(request, rid):
+  review = Review.objects.get(id=rid)
+  id = int(request.GET['id'])
+  
+  user = User.objects.get(id=id)
   rec_already = ReviewRec.objects.filter(user = user, review = review)
 
   if rec_already:
     rec_already.delete()
   else:
     ReviewRec.objects.create(user = user, review = review)
+
+  curRec = ReviewRec.objects.filter(review = review).count()
   
-  return redirect('/pages/review/'+str(id))
+  return JsonResponse({'message': 'success', 'count': curRec})
 
 
 def comment_recommend(request, id, cid):

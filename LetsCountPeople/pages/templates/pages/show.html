@@ -10,7 +10,7 @@
       <div class="article-content">
         <div>{{ review.content }}</div>
         {% if user.is_authenticated %}
-          <div class="content-recommend"><a href="/pages/review/{{ review.id }}/rec/">추천: {{ review.rec_users.count }}</a></div>
+          <div class="content-recommend"><button class="feed-rec" data-id="{{ request.user.id }}" data-rid="{{ review.id }}" href="/pages/review/{{ review.id }}/rec/">추천: {{ review.rec_users.count }}</button></div>
         {% else %}
           <div class="content-recommend">추천: {{ review.rec_users.count }}</div>
         {% endif %}
