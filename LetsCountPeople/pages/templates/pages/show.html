@@ -10,7 +10,7 @@
       <div class="article-content">
         <div>{{ review.content }}</div>
         {% if user.is_authenticated %}
-          <div class="content-recommend"><button class="feed-rec" data-id="{{ request.user.id }}" data-rid="{{ review.id }}" href="/pages/review/{{ review.id }}/rec/">추천: {{ review.rec_users.count }}</button></div>
+          <div class="content-recommend"><button class="review-rec" data-id="{{ request.user.id }}" data-rid="{{ review.id }}" href="/pages/review/{{ review.id }}/rec/">추천: {{ review.rec_users.count }}</button></div>
         {% else %}
           <div class="content-recommend">추천: {{ review.rec_users.count }}</div>
         {% endif %}
@@ -29,7 +29,7 @@
         <div class="review-comment">
           <div><strong>{{ comment.author }}</strong> | {{ comment.content }} 
             {% if user.is_authenticated %}
-              | <a href="/pages/review/{{ review.id }}/comment/{{ comment.id }}/rec/">추천: {{ comment.rec_users.count }}</a></div>
+              | <button class="comment-rec" data-id="{{ request.user.id }}" data-rid="{{ review.id }}" data-cid="{{ comment.id }}">추천: {{ comment.rec_users.count }}</button></div>
             {% else %}
               | 추천: {{ comment.rec_users.count }}</div>
             {% endif %}

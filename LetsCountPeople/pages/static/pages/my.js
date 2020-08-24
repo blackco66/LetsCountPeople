@@ -87,8 +87,8 @@ $(document).ready(() => {
     });
   });
 
-  // 리뷰 추천할 때 redirect 없이 추천 div 영역만 새로고침하는 함수
-  $('.feed-rec').click( (e) => {
+  // 리뷰 추천할 때 redirect 없이 추천 div 영역만 건드리는 함수
+  $('.review-rec').click( (e) => {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
@@ -99,19 +99,48 @@ $(document).ready(() => {
       type: 'GET',
       url: `/pages/review/${rid}/rec/`,
       data: {
-        id: id,
         rid: rid,
       },
       dataType: 'json',
       success: function(response) {
-        const str = `추천: ${response.count}`
-        $this.html(str)
+        const str = `추천: ${response.count}`;
+        $this.html(str);
       },
       error: function(response, status, error) {
         console.log('error');
         console.log(response, status, error);
       },
       complete: function(response) {
+      }
+    })
+  })
+
+
+  // 댓글 추천 새로고침 없이 div만 고치는 함수
+  $('.comment-rec').click( (e) => {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
+    const rid = $this.data('rid');
+    const cid = $this.data('cid');
+
+    $.ajax({
+      type: 'GET',
+      url: `/pages/review/${rid}/comment/${cid}/rec/`,
+      dataType: 'json',
+      data: {
+        rid: rid,
+        cid: cid,
+      },
+      success: function(response) {
+        const str = `추천: ${response.count}`;
+        $this.html(str);
+      },
+      error: function(response) {
+        console.log(0);
+      },
+      compelete: function(response) {
+
       }
     })
   })

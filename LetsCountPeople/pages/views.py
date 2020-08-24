@@ -152,7 +152,7 @@ def get_data(request):
 
 def review_recommend(request, rid):
   review = Review.objects.get(id=rid)
-  id = int(request.GET['id'])
+  id = request.user.id
   
   user = User.objects.get(id=id)
   rec_already = ReviewRec.objects.filter(user = user, review = review)
@@ -167,7 +167,7 @@ def review_recommend(request, rid):
   return JsonResponse({'message': 'success', 'count': curRec})
 
 
-def comment_recommend(request, id, cid):
+def comment_recommend(request, rid, cid):
   comment = ReviewComment.objects.get(id=cid)
   user = request.user
   rec_already = CommentRec.objects.filter(user_id = user.id, comment_id = cid)
@@ -177,4 +177,6 @@ def comment_recommend(request, id, cid):
   else:
     CommentRec.objects.create(user=user, comment=comment)
 
-  return redirect('/pages/review/'+str(id))
+  curRec = CommentRec.objects.filter(comment = comment).count()
+
+  return JsonResponse({'count': curRec})
