@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="/pages/review/{{ review.id }}/edit/" method="POST">
+    {% csrf_token %}
+    <label for="review-title">제목: </label>
+    <input id="review-title" type="text" name="review-title" value="{{ review.title }}"> <br>
+
+    <label for="review-content">내용: </label>
+    <input id="review-content" type="text" name="review-content" value="{{ review.content }}"> <br>
+
+    <input type="submit" value="수정">
+  </form>
+{% endblock content %}

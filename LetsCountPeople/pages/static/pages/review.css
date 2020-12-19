@@ -1,0 +1,46 @@
+/* review.html */
+
+.review-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.review-list {
+  border: 1px solid black;
+  margin: 3px 0;
+  /* padding-bottom: 10px; */
+}
+
+table {
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.write-button-div {
+  font-size: 13px;
+  text-align: right;
+}
+
+.write-button {
+  padding: 3px;
+}
+
+th {
+  height: 38px;
+  text-align: center;
+}
+td {
+  height: 27px;
+  border-top: 1px solid black;
+  text-align: center;
+}
+
+.page-list {
+  width: 30%;
+  margin: 0 auto;
+}
+
+a.activate {
+  font-weight: 900;
+}

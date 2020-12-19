@@ -1,5 +1,86 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<button href="/pages/review/new/">글쓰기</button>
+
+{% if error %}
+<script type="text/javascript">
+    alert("{{error}}");
+</script>
+{% endif %}
+
+<div class="review-wrapper">
+  {% if user.is_authenticated %}
+    <div class="write-button-div">
+      <button class="write-button"><a href="/pages/review/new/">글쓰기</a></button>
+    </div>
+  {% endif %}
+  <div class="review-list">
+    <table>
+      <colgroup>
+        <col style="width:20%">
+        <col>
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:6%">
+        <col style="width:6%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">매장이름</th>
+          <th scope="col">제목</th>
+          <th scope="col">글쓴이</th>
+          <th scope="col">추천수</th>
+          <th scope="col">작성일</th>
+          <th scope="col">조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in reviews %}
+          <tr>
+            <td>{{ review.gym.name }}</td>
+            <td style="text-align: left;"><a href="/pages/review/{{ review.id }}/">{{ review.title }} [{{ review.reviewcomment_set.count }}]</a></td>
+            <td>{{ review.author }}</td>
+            <td>{{ review.rec_users.count }}</td>
+            <td>{{ review.created_at|date:"y/m/d" }}</td>
+            <td>{{ review.hits }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-list">
+    {% if reviews.has_previous %}
+      <a href="?page=1">시작</a>
+      <a href="?page={{ reviews.previous_page_number }}">이전</a>
+    {% endif %}
+    {% for page in page_range %}
+      <a {% if page == current %}class="activate"{% endif %} href="?page={{ page }}">{{ page }}</a>
+    {% endfor %}
+    {% if reviews.has_next %}
+      <a href="?page={{ reviews.next_page_number }}">다음</a>
+      <a href="?page={{ reviews.paginator.num_pages }}">마지막</a>
+    {% endif %}
+  </div>
+
+  <div class="review-search">
+    <form action="{% url 'review_list' %}" method="POST">
+      {% csrf_token %}
+      <select name="search-type">
+        <option value="title">제목</option>
+        <option value="content">내용</option>
+        <option value="author">작성자</option>
+        <option value="gym">헬스장</gym>
+        <option value="title-content">제목 + 내용</option>
+      </select>
+      <input type="text" name="search-value">
+      <input type="submit" value="검색">
+    </form>
+  </div>
+  {% if user.is_authenticated %}
+    <div class="write-button-div">
+      <button class="write-button"><a href="/pages/review/new/">글쓰기</a></button>
+    </div>
+  {% endif %}
+
+</div>
 {% endblock content %}
