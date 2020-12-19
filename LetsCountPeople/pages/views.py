@@ -14,12 +14,12 @@ def index(request):
     return render(request, 'pages/index.html', {'gyms': gyms})
 
 
+<<<<<<< HEAD
 def search_result(request):
   gym_names = None
   query = None
   gym_all = Gym.objects.all()
   if 'q' in request.POST:
-    query = request.POST.get('q')
     gym_names = gym_all.filter(
       Q(name__icontains=query) | Q(address__icontains=query))
   else:
@@ -180,3 +180,9 @@ def comment_recommend(request, rid, cid):
   curRec = CommentRec.objects.filter(comment = comment).count()
 
   return JsonResponse({'count': curRec})
+=======
+def review(request):
+  return render(request, 'pages/review.html')
+
+
+def new(request):
